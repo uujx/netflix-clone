@@ -1,8 +1,7 @@
-const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path')
 const dotenv = require('dotenv')
-
-
+const webpack = require('webpack')
 
 const PostCSSLoader = {
   loader: 'postcss-loader',
@@ -10,6 +9,12 @@ const PostCSSLoader = {
     plugins: [require('autoprefixer')]
   }
 }
+
+const env = dotenv.config().parsed
+const processEnv = Object.keys(env).reduce((prev, next) => {
+  prev[`process.env.${next}`] = JSON.stringify(env[next])
+  return prev
+}, {})
 
 module.exports = {
   entry: './src/index.tsx',
@@ -63,6 +68,7 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.DefinePlugin(processEnv),
     new HtmlWebpackPlugin({
       title: 'Netflix Clone',
       template: './src/index.html'
