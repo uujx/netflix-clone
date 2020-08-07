@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from '../../axios-movies'
 
 import Poster from '../../components/Poster/Poster'
-import styles from './Trending.module.css'
+import styles from './Trending.module.scss'
 
 type TrendingMovie = {
   id: number
@@ -27,7 +27,7 @@ const Trending: React.FC = () => {
   }, [])
 
   return (
-    <div>
+    <div className={styles.TrendingMovies}>
       {trendingMovies.map((movie) => {
         return <Poster key={movie.id} posterURL={movie.poster_path} />
       })}

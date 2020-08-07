@@ -5,9 +5,17 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CSSModuleLoader = {
   loader: 'css-loader',
   options: {
-    modules: true,
-    localIdentName: '[name]_[local]_[hash:base64:5]',
-    sourceMap: false // turned off as causes delay
+    modules: true
+    // localIdentName: '[name]_[local]_[hash:base64:5]',
+    // sourceMap: false, // turned off as causes delay
+    // scss: true
+  }
+}
+
+const PostCSSLoader = {
+  loader: 'postcss-loader',
+  options: {
+    plugins: [require('autoprefixer')]
   }
 }
 
@@ -28,10 +36,10 @@ module.exports = {
     // open: true
   },
 
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
 
   resolve: {
-    extensions: ['.tsx', '.ts', '.js']
+    extensions: ['.tsx', '.ts', '.js', '.css', '.scss']
   },
 
   module: {
@@ -41,15 +49,29 @@ module.exports = {
         use: 'ts-loader',
         exclude: /node_modules/
       },
-      {
-        test: /\.css$/,
-        exclude: /\.module\.css$/,
-        use: ['style-loader', 'css-loader']
-      },
+      // {
+      //   test: /\.(sc|sa|c)ss$/,
+      //   exclude: /\.module\.(sc|sa|c)ss$/,
+      //   use: ['style-loader', 'css-loader', PostCSSLoader, 'sass-loader']
+      // },
       {
         // TODO: css modules + typescript
-        test: /\.module\.css$/,
-        use: ['style-loader', CSSModuleLoader]
+        test: /\.(sc|sa|c)ss$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                mode: 'local',
+                localIdentName: '[local]--[hash:base64:6]',
+                exportLocalsConvention: 'camelCase'
+              }
+            }
+          },
+          PostCSSLoader,
+          'sass-loader'
+        ]
       }
     ]
   },
