@@ -3,13 +3,13 @@ import React from 'react'
 import Search from './components/Search/Search'
 import Home from './containers/Home/Home'
 import Poster from './components/Poster/Poster'
+import Layout from './hoc/Layout/Layout'
 
 const App: React.FC = () => {
   return (
-    <div>
-      <Search />
+    <Layout>
       <Home />
-    </div>
+    </Layout>
   )
 }
 
