@@ -1,13 +1,13 @@
 .MovieShowcase {
   margin: 20px 0;
   
-  &--Title {
+  .Heading {
     font-size: 20px;
     font-weight: bold;
     margin: 10px;
   }
 
-  &--MoviesContainer {
+  .MoviesContainer {
     width: 100%;
     display: flex;
     padding: 20px 0;
@@ -16,7 +16,7 @@
     column-gap: 10px;
   }
 
-  &--MoviesContainer::-webkit-scrollbar {
+  .MoviesContainer::-webkit-scrollbar {
     display: none
   }
 }

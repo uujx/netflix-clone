@@ -1,13 +1,17 @@
 import React from 'react'
 
 import Search from '../../components/Search/Search'
+import Navigation from '../../components/Navigation/Navigation'
+import Logo from '../../components/UI/Logo/Logo'
+import styles from './Header.module.scss'
 
 const Header: React.FC = () => {
   return (
-    <div>
-      <h1></h1>
+    <header className={styles.Header}>
+      <Logo />
+      <Navigation />
       <Search />
-    </div>
+    </header>
   )
 }
 

@@ -63,6 +63,12 @@ module.exports = {
           PostCSSLoader,
           'sass-loader'
         ]
+      },
+      {
+        test: /\.(png|svg|jpg)$/,
+        use: {
+          loader: 'url-loader'
+        }
       }
     ]
   },

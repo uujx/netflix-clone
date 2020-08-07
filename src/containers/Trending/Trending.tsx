@@ -28,8 +28,8 @@ const Trending: React.FC = () => {
 
   return (
     <div className={styles.MovieShowcase}>
-      <h2 className={styles["MovieShowcase--Title"]}>Trending Now</h2>
-      <div className={styles["MovieShowcase--MoviesContainer"]}>
+      <h2 className={styles.Heading}>Trending Now</h2>
+      <div className={styles.MoviesContainer}>
         {trendingMovies.map((movie) => {
           return <Poster key={movie.id} posterURL={movie.poster_path} title={movie.title} />
         })}
