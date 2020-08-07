@@ -51,3 +51,8 @@ html {
 *::before {
   box-sizing: border-box;
 }
+
+body {
+	background-color: #141414;
+	color: #FFF;
+}

@@ -1,6 +1,23 @@
-.TrendingMovies {
-  width: 100%;
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-between;
+.MovieShowcase {
+  margin: 20px 0;
+  
+  &--Title {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px;
+  }
+
+  &--MoviesContainer {
+    width: 100%;
+    display: flex;
+    padding: 20px 0;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    column-gap: 10px;
+  }
+
+  &--MoviesContainer::-webkit-scrollbar {
+    display: none
+  }
 }
+

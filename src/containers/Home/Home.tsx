@@ -1,9 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import MainContent from '../MainContent/MainContent'
+import Modal from '../../components/UI/Modal/Modal'
 
 const Home: React.FC = () => {
-  return <MainContent />
+  const [showModal, setShowModal] = useState(false)
+
+  return (
+    <>
+      <Modal />
+      <MainContent />
+    </>
+  )
 }
 
 export default Home

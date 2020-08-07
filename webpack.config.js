@@ -1,16 +1,8 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const dotenv = require('dotenv')
 
-// For our css modules these will be locally scoped
-const CSSModuleLoader = {
-  loader: 'css-loader',
-  options: {
-    modules: true
-    // localIdentName: '[name]_[local]_[hash:base64:5]',
-    // sourceMap: false, // turned off as causes delay
-    // scss: true
-  }
-}
+
 
 const PostCSSLoader = {
   loader: 'postcss-loader',
@@ -49,13 +41,7 @@ module.exports = {
         use: 'ts-loader',
         exclude: /node_modules/
       },
-      // {
-      //   test: /\.(sc|sa|c)ss$/,
-      //   exclude: /\.module\.(sc|sa|c)ss$/,
-      //   use: ['style-loader', 'css-loader', PostCSSLoader, 'sass-loader']
-      // },
       {
-        // TODO: css modules + typescript
         test: /\.(sc|sa|c)ss$/,
         use: [
           'style-loader',
@@ -79,7 +65,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Netflix Clone',
-      template: './dist/index.html'
+      template: './src/index.html'
     })
   ]
 }
