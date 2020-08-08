@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 const path = require('path')
 const dotenv = require('dotenv')
 const webpack = require('webpack')
@@ -43,7 +44,13 @@ module.exports = {
     rules: [
       {
         test: /\.ts(x?)$/,
-        use: 'ts-loader',
+        use: [
+          {
+            loader: 'babel-loader',
+            options: { plugins: ['react-refresh/babel'] }
+          },
+          'ts-loader'
+        ],
         exclude: /node_modules/
       },
       {
@@ -78,6 +85,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'Netflix Clone',
       template: './src/index.html'
-    })
+    }),
+    new ReactRefreshWebpackPlugin()
   ]
 }

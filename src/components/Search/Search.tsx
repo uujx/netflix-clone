@@ -11,7 +11,7 @@ const Search: React.FC = () => {
   const fetchResult = useCallback(
     _.debounce(
       () => {
-        console.log('fetching')
+        console.log('fetching...')
         axios
           .get(
             `/search/movie?query=${encodeURIComponent(inputRef.current!.value)}`
