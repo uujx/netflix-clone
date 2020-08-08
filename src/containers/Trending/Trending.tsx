@@ -21,7 +21,7 @@ const Trending: React.FC = () => {
   const [trendingMovies, setTrendingMovies] = useState<Array<TrendingMovie>>([])
 
   useEffect(() => {
-    axios.get<TrendingMoviesResponse>('/trending/all/week').then((res) => {
+    axios.get<TrendingMoviesResponse>('/trending/all/day').then((res) => {
       setTrendingMovies(res.data.results)
     })
   }, [])
