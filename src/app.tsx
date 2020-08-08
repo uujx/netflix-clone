@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Search from './components/Search/Search'
+import Search from './containers/Search/Search'
 import Home from './containers/Home/Home'
 import Poster from './components/Poster/Poster'
 import Layout from './hoc/Layout/Layout'

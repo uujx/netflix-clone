@@ -1,18 +1,17 @@
 import React from 'react'
 
 import NavigationItem from '../NavigationItem/NavigationItem'
-import styles from './Navigation.module.scss'
-
+import NavContainer from '../../hoc/NavContainer/NavContainer'
 
 const Navigation: React.FC = () => {
   return (
-    <nav className={styles.Navigation}>
+    <NavContainer>
       <NavigationItem url='' name='Home' />
       <NavigationItem url='' name='TV Shows' />
       <NavigationItem url='' name='Movies' />
       <NavigationItem url='' name='Recently Added' />
       <NavigationItem url='' name='My List' />
-    </nav>
+    </NavContainer>
   )
 }
 

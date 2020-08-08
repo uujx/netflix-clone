@@ -1,16 +1,20 @@
 import React from 'react'
 
-import Search from '../../components/Search/Search'
+import Search from '../Search/Search'
 import Navigation from '../../components/Navigation/Navigation'
-import Logo from '../../components/UI/Logo/Logo'
+import NetflixLogo from '../../components/UI/NetflixLogo/NetflixLogo'
+import OtherNavigation from '../../components/OtherNavigation/OtherNavigation'
+import BellLogo from '../../components/UI/BellLogo/BellLogo'
 import styles from './Header.module.scss'
 
 const Header: React.FC = () => {
   return (
     <header className={styles.Header}>
-      <Logo />
+      <NetflixLogo />
       <Navigation />
       <Search />
+      <OtherNavigation />
+      <BellLogo />
     </header>
   )
 }
