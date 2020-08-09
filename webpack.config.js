@@ -54,7 +54,7 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.(sc|sa|c)ss$/,
+        test: /\.module\.(sc|sa|c)ss$/,
         use: [
           'style-loader',
           {
@@ -67,6 +67,16 @@ module.exports = {
               }
             }
           },
+          PostCSSLoader,
+          'sass-loader'
+        ]
+      },
+      {
+        test: /\.(sc|sa|c)ss$/,
+        exclude: /\.module\.(sc|sa|c)ss$/,
+        use: [
+          'style-loader',
+          'css-loader',
           PostCSSLoader,
           'sass-loader'
         ]

@@ -3,5 +3,6 @@ import ReactDOM from 'react-dom'
 
 import App from './app'
 import './index.css'
+import 'swiper/swiper-bundle.css'
 
 ReactDOM.render(<App />, document.getElementById('app'))

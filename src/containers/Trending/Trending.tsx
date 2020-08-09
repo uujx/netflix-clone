@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import SwiperCore, { Navigation } from 'swiper'
 import axios from '../../axios-movies'
 
-import Poster from '../../components/Poster/Poster'
 import styles from './Trending.module.scss'
+
+SwiperCore.use([Navigation])
 
 type TrendingMovie = {
   id: number
@@ -29,11 +32,23 @@ const Trending: React.FC = () => {
   return (
     <div className={styles.MovieShowcase}>
       <h2 className={styles.Heading}>Trending Now</h2>
-      <div className={styles.MoviesContainer}>
-        {trendingMovies.map((movie) => {
-          return <Poster key={movie.id} posterURL={movie.poster_path} title={movie.title} />
-        })}
-      </div>
+      <Swiper
+        className={styles.MoviesContainer}
+        spaceBetween={20}
+        slidesPerView={5}
+        slidesPerGroup={3}
+        navigation
+        onSlideChange={() => console.log('slide change')}
+        onSwiper={(swiper) => console.log(swiper)}>
+        {trendingMovies.map((movie) => (
+          <SwiperSlide key={movie.id} className={styles.Poster}>
+            <img
+              src={`http://image.tmdb.org/t/p/original${movie.poster_path}`}
+              alt={movie.title}
+            />
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </div>
   )
 }
