@@ -3,28 +3,28 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import SwiperCore, { Navigation } from 'swiper'
 import axios from '../../axios-movies'
 
-import styles from './Trending.module.scss'
 import { Movie, FetchingMovieResponse } from '../../model/Movie.model'
+import styles from './NetflixOriginal.module.scss'
 
 SwiperCore.use([Navigation])
 
-const Trending: React.FC = () => {
+const NetflixOriginals: React.FC = () => {
   const [trendingMovies, setTrendingMovies] = useState<Array<Movie>>([])
 
   useEffect(() => {
-    axios.get<FetchingMovieResponse>('/trending/all/day').then((res) => {
+    axios.get<FetchingMovieResponse>('discover/tv?sort_by=popularity.desc&page=1&timezone=America%2FNew_York&with_networks=213&include_null_first_air_dates=false').then((res) => {
       setTrendingMovies(res.data.results)
     })
   }, [])
 
   return (
     <div className={styles.MovieShowcase}>
-      <h2 className={styles.Heading}>Trending Now</h2>
+      <h2 className={styles.Heading}>Netflix Originals</h2>
       <Swiper
         className={styles.MoviesContainer}
-        spaceBetween={10}
-        slidesPerView={7}
-        slidesPerGroup={3}
+        spaceBetween={20}
+        slidesPerView={5}
+        slidesPerGroup={2}
         navigation
         onSlideChange={() => console.log('slide change')}
         onSwiper={(swiper) => console.log(swiper)}>
@@ -41,4 +41,4 @@ const Trending: React.FC = () => {
   )
 }
 
-export default Trending
+export default NetflixOriginals

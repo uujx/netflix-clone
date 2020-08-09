@@ -45,7 +45,7 @@ const Search: React.FC = () => {
         ref={inputRef}
         value={search}
         onChange={inputChangeHandler}
-        placeholder='Search movies'
+        placeholder='Title of movie or TV show'
       />
     </div>
   )
