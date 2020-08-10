@@ -43,9 +43,19 @@ const NetflixOriginals: React.FC = () => {
     </SwiperSlide>
   ))
 
+  const modal = selectedMovie && (
+    <Modal
+      showModal={showModal}
+      toggleModal={onTaggleModal}
+      backdropUrl={selectedMovie.backdrop_path || selectedMovie.poster_path}>
+      {<MovieDetail movie={selectedMovie} />}
+    </Modal>
+  )
+
   return (
     <div className={styles.MovieShowcase}>
       <h2 className={styles.Heading}>Netflix Originals</h2>
+
       <Swiper
         className={styles.MoviesContainer}
         spaceBetween={20}
@@ -56,9 +66,8 @@ const NetflixOriginals: React.FC = () => {
         onSwiper={(swiper) => console.log(swiper)}>
         {movies}
       </Swiper>
-      <Modal showModal={showModal} toggleModal={onTaggleModal}>
-        {selectedMovie && <MovieDetail movie={selectedMovie} />}
-      </Modal>
+
+      {modal}
     </div>
   )
 }

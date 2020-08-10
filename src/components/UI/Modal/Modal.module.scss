@@ -1,15 +1,19 @@
-.Show {
+.Container {
   position: fixed;
-  display: flex;
-  width: 100vw;
-  height: 500px;
-  padding: 30px;
+  width: 100%;
+  height: 60%;
   z-index: 300;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: black;
+  top: 0;
+  left: 0;
+}
+
+.Show {
+  visibility: visible;
+  top: 25%;
+  transition: .5s .3s ease-out;
+  
 }
 
 .Hide {
-  display: none;
+  visibility: hidden;
 }
