@@ -1,8 +1,9 @@
 import React from 'react'
 
-import Search from './containers/Search/Search'
 import Home from './containers/Home/Home'
 import Layout from './hoc/Layout/Layout'
+import Modal from './components/UI/Modal/Modal'
+import MovieDetail from './components/MovieDetail/MovieDetail'
 
 const App: React.FC = () => {
   return (

@@ -3,6 +3,8 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import SwiperCore, { Navigation } from 'swiper'
 import axios from '../../axios-movies'
 
+import Modal from '../../components/UI/Modal/Modal'
+import MovieDetail from '../../components/MovieDetail/MovieDetail'
 import { Movie, FetchingMovieResponse } from '../../model/Movie.model'
 import styles from './NetflixOriginal.module.scss'
 
@@ -10,12 +12,36 @@ SwiperCore.use([Navigation])
 
 const NetflixOriginals: React.FC = () => {
   const [trendingMovies, setTrendingMovies] = useState<Array<Movie>>([])
+  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null)
+  const [showModal, setShowModal] = useState<boolean>(false)
 
   useEffect(() => {
-    axios.get<FetchingMovieResponse>('discover/tv?sort_by=popularity.desc&page=1&timezone=America%2FNew_York&with_networks=213&include_null_first_air_dates=false').then((res) => {
-      setTrendingMovies(res.data.results)
-    })
+    axios
+      .get<FetchingMovieResponse>(
+        'discover/tv?sort_by=popularity.desc&page=1&timezone=America%2FNew_York&with_networks=213&include_null_first_air_dates=false'
+      )
+      .then((res) => {
+        setTrendingMovies(res.data.results)
+      })
   }, [])
+
+  const onSelectMovie = (movie: Movie) => {
+    setSelectedMovie(movie)
+    setShowModal((prevState) => !prevState)
+  }
+
+  const onTaggleModal = () => {
+    setShowModal((prevState) => !prevState)
+  }
+
+  const movies = trendingMovies.map((movie) => (
+    <SwiperSlide key={movie.id} className={styles.Poster}>
+      <img
+        src={`http://image.tmdb.org/t/p/original${movie.poster_path}`}
+        onClick={onSelectMovie.bind(null, movie)}
+      />
+    </SwiperSlide>
+  ))
 
   return (
     <div className={styles.MovieShowcase}>
@@ -28,15 +54,11 @@ const NetflixOriginals: React.FC = () => {
         navigation
         onSlideChange={() => console.log('slide change')}
         onSwiper={(swiper) => console.log(swiper)}>
-        {trendingMovies.map((movie) => (
-          <SwiperSlide key={movie.id} className={styles.Poster}>
-            <img
-              src={`http://image.tmdb.org/t/p/original${movie.poster_path}`}
-              alt={movie.title}
-            />
-          </SwiperSlide>
-        ))}
+        {movies}
       </Swiper>
+      <Modal showModal={showModal} toggleModal={onTaggleModal}>
+        {selectedMovie && <MovieDetail movie={selectedMovie} />}
+      </Modal>
     </div>
   )
 }
