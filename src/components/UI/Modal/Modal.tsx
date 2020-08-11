@@ -6,7 +6,7 @@ import styles from './Modal.module.scss'
 interface ModalProps {
   showModal: boolean
   toggleModal: () => void
-  backdropUrl: string
+  backdropUrl: string | null
 }
 
 const Modal: React.FC<ModalProps> = (props) => {
@@ -17,12 +17,14 @@ const Modal: React.FC<ModalProps> = (props) => {
     containerStyle.push(styles.Hide)
   }
 
-  const backgroundStyle = {
-    backgroundImage: `url(https://image.tmdb.org/t/p/original${props.backdropUrl})`,
-    backgroundPosition: '250px top',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat'
-  }
+  const backgroundStyle = props.backdropUrl !== ''
+    ? {
+        backgroundImage: `url(https://image.tmdb.org/t/p/original${props.backdropUrl})`,
+        // backgroundPosition: '250px top',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat'
+      }
+    : {}
 
   return (
     <>

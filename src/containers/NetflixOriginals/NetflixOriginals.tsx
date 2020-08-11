@@ -6,6 +6,7 @@ import axios from '../../axios-movies'
 import Modal from '../../components/UI/Modal/Modal'
 import MovieDetail from '../../components/MovieDetail/MovieDetail'
 import { Movie, FetchingMovieResponse } from '../../model/Movie.model'
+import useModal from '../../hooks/useModal'
 import styles from './NetflixOriginal.module.scss'
 
 SwiperCore.use([Navigation])
@@ -13,7 +14,7 @@ SwiperCore.use([Navigation])
 const NetflixOriginals: React.FC = () => {
   const [trendingMovies, setTrendingMovies] = useState<Array<Movie>>([])
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null)
-  const [showModal, setShowModal] = useState<boolean>(false)
+  const { modal, setShowModal } = useModal(selectedMovie)
 
   useEffect(() => {
     axios
@@ -26,12 +27,9 @@ const NetflixOriginals: React.FC = () => {
   }, [])
 
   const onSelectMovie = (movie: Movie) => {
+    console.log(movie)
     setSelectedMovie(movie)
-    setShowModal((prevState) => !prevState)
-  }
-
-  const onTaggleModal = () => {
-    setShowModal((prevState) => !prevState)
+    setShowModal(true)
   }
 
   const movies = trendingMovies.map((movie) => (
@@ -43,15 +41,6 @@ const NetflixOriginals: React.FC = () => {
     </SwiperSlide>
   ))
 
-  const modal = selectedMovie && (
-    <Modal
-      showModal={showModal}
-      toggleModal={onTaggleModal}
-      backdropUrl={selectedMovie.backdrop_path || selectedMovie.poster_path}>
-      {<MovieDetail movie={selectedMovie} />}
-    </Modal>
-  )
-
   return (
     <div className={styles.MovieShowcase}>
       <h2 className={styles.Heading}>Netflix Originals</h2>
@@ -59,8 +48,9 @@ const NetflixOriginals: React.FC = () => {
       <Swiper
         className={styles.MoviesContainer}
         spaceBetween={20}
-        slidesPerView={5}
-        slidesPerGroup={2}
+        slidesPerView={6}
+        slidesPerGroup={4}
+        speed={1000}
         navigation
         onSlideChange={() => console.log('slide change')}
         onSwiper={(swiper) => console.log(swiper)}>
