@@ -3,8 +3,6 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import SwiperCore, { Navigation } from 'swiper'
 import axios from '../../axios-movies'
 
-import Modal from '../../components/UI/Modal/Modal'
-import MovieDetail from '../../components/MovieDetail/MovieDetail'
 import { Movie, FetchingMovieResponse } from '../../model/Movie.model'
 import useModal from '../../hooks/useModal'
 import styles from './NetflixOriginal.module.scss'

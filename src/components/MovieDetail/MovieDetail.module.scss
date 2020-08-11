@@ -32,31 +32,4 @@
     width: 45%;
     color: #959494;
   }
-
-  .Button {
-    color: white;
-    font-size: 16px;
-    border-radius: 5px;
-    margin: 20px 20px 20px 0;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: transform 300ms;
-    box-shadow: none;
-
-    &:hover {
-      transform: scale(1.1);
-    }
-  }
-
-  .Play {
-    @extend .Button;
-    background-color: #d80513;
-    border: 1px solid transparent;
-  }
-
-  .Add {
-    @extend .Button;
-    background-color: black;
-    border: 1px solid white;
-  }
 }

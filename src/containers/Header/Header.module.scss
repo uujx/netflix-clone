@@ -1,6 +1,15 @@
 .Header {
-  // position: fixed;
+  position: fixed;
+  width: 100%;
+  padding: 10px 40px;
   display: flex;
-  margin: 10px 40px;
   align-items: center;
+  background-color: transparent;
+  z-index: 500;
+  transition: all 1s ease-out;
+}
+
+.Black {
+  transition: all 1s ease-in;
+  background-color: black;
 }
