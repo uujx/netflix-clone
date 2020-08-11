@@ -2,7 +2,7 @@ import React, { useState, useRef, useCallback } from 'react'
 import _ from 'lodash'
 
 import axios from '../../axios-movies'
-import searchIcon from '../../assets/images/search-icon.svg'
+import SearchIcon from '../../assets/images/search-icon.svg'
 import styles from './Search.module.scss'
 
 const Search: React.FC = () => {
@@ -38,7 +38,7 @@ const Search: React.FC = () => {
 
   return (
     <div className={styles.SearchContainer}>
-      <img src={searchIcon} alt='searchIcon' className={styles.Icon} />
+      <SearchIcon className={styles.Icon} />
       <input
         className={styles.Input}
         type='text'

@@ -82,11 +82,18 @@ module.exports = {
         ]
       },
       {
-        test: /\.(png|svg|jpg)$/,
+        test: /\.(png|jpg)$/,
         use: {
           loader: 'url-loader'
         }
-      }
+      },
+      {
+        test: /\.svg$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'svg-react-loader',
+        },
+      },
     ]
   },
 

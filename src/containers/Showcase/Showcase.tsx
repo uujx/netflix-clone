@@ -39,7 +39,7 @@ const Showcase: React.FC<ShowcaseProps> = (props) => {
 
   const swiperMovies = movies.map((movie) => (
     <SwiperSlide key={movie.id} className={styles.Poster}>
-      <h1 className={styles.Title}>{movie.title || movie.name}</h1>
+      {/* <h1 className={styles.Title}>{movie.title || movie.name}</h1> */}
       <img
         src={`http://image.tmdb.org/t/p/original${movie.backdrop_path}`}
         alt={movie.title}
