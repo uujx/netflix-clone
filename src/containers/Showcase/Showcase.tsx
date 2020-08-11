@@ -3,38 +3,46 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import SwiperCore, { Navigation } from 'swiper'
 import axios from '../../axios-movies'
 
-import Modal from '../../components/UI/Modal/Modal'
-import MovieDetail from '../../components/MovieDetail/MovieDetail'
 import { Movie, FetchingMovieResponse } from '../../model/Movie.model'
 import useModal from '../../hooks/useModal'
-import styles from './NetflixOriginal.module.scss'
+import styles from './Showcase.module.scss'
 
 SwiperCore.use([Navigation])
 
-const NetflixOriginals: React.FC = () => {
-  const [netflixMovies, setNetflixMovies] = useState<Array<Movie>>([])
+interface ShowcaseProps {
+  title: string
+  api: string
+}
+
+const Showcase: React.FC<ShowcaseProps> = (props) => {
+  const [movies, setMovies] = useState<Array<Movie>>([])
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null)
   const { modal, setShowModal } = useModal(selectedMovie)
 
   useEffect(() => {
-    axios
-      .get<FetchingMovieResponse>(
-        'discover/tv?sort_by=popularity.desc&page=1&timezone=America%2FNew_York&with_networks=213&include_null_first_air_dates=false'
-      )
-      .then((res) => {
-        setNetflixMovies(res.data.results)
+    axios.get<FetchingMovieResponse>(props.api).then((res) => {
+      const filteredMovies = res.data.results.filter(movie => {
+        if (!movie.backdrop_path) {
+          return false
+        }
+        return true
       })
+      setMovies(filteredMovies)
+    })
   }, [])
 
   const onSelectMovie = (movie: Movie) => {
+    console.log(movie)
     setSelectedMovie(movie)
     setShowModal(true)
   }
 
-  const movies = netflixMovies.map((movie) => (
+  const swiperMovies = movies.map((movie) => (
     <SwiperSlide key={movie.id} className={styles.Poster}>
+      <h1 className={styles.Title}>{movie.title || movie.name}</h1>
       <img
-        src={`http://image.tmdb.org/t/p/original${movie.poster_path}`}
+        src={`http://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+        alt={movie.title}
         onClick={onSelectMovie.bind(null, movie)}
       />
     </SwiperSlide>
@@ -42,18 +50,18 @@ const NetflixOriginals: React.FC = () => {
 
   return (
     <div className={styles.MovieShowcase}>
-      <h2 className={styles.Heading}>Netflix Originals</h2>
+      <h2 className={styles.Heading}>{props.title}</h2>
 
       <Swiper
         className={styles.MoviesContainer}
-        spaceBetween={20}
-        slidesPerView={6}
+        spaceBetween={10}
+        slidesPerView={7}
         slidesPerGroup={4}
         speed={1000}
         navigation
         onSlideChange={() => console.log('slide change')}
         onSwiper={(swiper) => console.log(swiper)}>
-        {movies}
+        {swiperMovies}
       </Swiper>
 
       {modal}
@@ -61,4 +69,4 @@ const NetflixOriginals: React.FC = () => {
   )
 }
 
-export default NetflixOriginals
+export default Showcase

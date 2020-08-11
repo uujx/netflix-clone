@@ -21,7 +21,7 @@ const MovieDetail: React.FC<MovieDetailProps> = (props) => {
             Release date:{' '}
             {props.movie.release_date || props.movie.first_air_date}
           </p>
-          <p>Runtime: 123</p>
+          <p>Language: {props.movie.original_language.toUpperCase()}</p>
         </div>
         <p className={styles.Desc}>{props.movie.overview}</p>
         <div>
