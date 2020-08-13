@@ -32,7 +32,6 @@ const Showcase: React.FC<ShowcaseProps> = (props) => {
   }, [])
 
   const onSelectMovie = (movie: Movie) => {
-    console.log(movie)
     setSelectedMovie(movie)
     setShowModal(true)
   }

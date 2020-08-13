@@ -17,19 +17,23 @@ const Search: React.FC = () => {
   const dispatch = useDispatch<
     ThunkDispatch<RootState, undefined, types.SearchActionTypes>
   >()
-  const debouncedDispatch = useCallback(_.debounce(dispatch, 800), [])
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newSearch = event.target.value
     setSearch(newSearch)
+    debouncedApiCall(newSearch)
+  }
 
+  const makeApiCall = (newSearch: string) => {
     if (newSearch !== '') {
-      debouncedDispatch(actions.search(newSearch))
+      dispatch(actions.search(newSearch))
       history.push('/search')
     } else {
       history.push('/')
     }
   }
+
+  const debouncedApiCall = useCallback(_.debounce(makeApiCall, 800), [])
 
   return (
     <div className={styles.SearchContainer}>

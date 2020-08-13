@@ -1,5 +1,6 @@
 import { ThunkDispatch } from 'redux-thunk'
 
+import { FetchingMovieResponse } from '../../model/Movie.model'
 import { RootState } from '../reducers/index'
 import axios from '../../axios-movies'
 import * as types from './actionTypes'
@@ -32,9 +33,14 @@ export const search = (query: string) => {
     dispatch(searchStart())
 
     axios
-      .get(`/search/movie?query=${encodeURIComponent(query)}`)
+      .get<FetchingMovieResponse>(
+        `/search/movie?query=${encodeURIComponent(query)}`
+      )
       .then((res) => {
-        dispatch(searchSuccess(res.data.results))
+        const filteredRes = res.data.results.filter(
+          (movie) => movie.poster_path != null
+        )
+        dispatch(searchSuccess(filteredRes))
       })
       .catch((err) => {
         console.log(err)
