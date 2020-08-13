@@ -21,13 +21,13 @@
   }
 }
 
-.Play {
+.Red {
   @extend .Button;
-  background-color: #d80513;
+  background-color: #E50914;
   border: 1px solid transparent;
 }
 
-.Add {
+.Black {
   @extend .Button;
   background-color: black;
   border: 1px solid white;

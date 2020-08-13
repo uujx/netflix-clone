@@ -1,6 +1,8 @@
 import React from 'react'
 
 import Button from '../UI/Button/Button'
+import AddLogo from '../../components/UI/AddLogo/AddLogo'
+import PlayLogo from '../../components/UI/PlayLogo/PlayLogo'
 import { Movie } from '../../model/Movie.model'
 import styles from './MovieDetail.module.scss'
 
@@ -26,8 +28,14 @@ const MovieDetail: React.FC<MovieDetailProps> = (props) => {
         </div>
         <p className={styles.Desc}>{props.movie.overview}</p>
         <div>
-          <Button type='play' />
-          <Button type='add' />
+          <Button type='red'>
+            <PlayLogo />
+            PLAY
+          </Button>
+          <Button type='black'>
+            <AddLogo />
+            MY LIST
+          </Button>
         </div>
       </>
     )

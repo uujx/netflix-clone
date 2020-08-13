@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react'
 // import axios from '../../axios-movies'
 
 import Button from '../../components/UI/Button/Button'
+import PlayLogo from '../../components/UI/PlayLogo/PlayLogo'
+import AddLogo from '../../components/UI/AddLogo/AddLogo'
 // import { Movie, FetchingMovieResponse } from '../../model/Movie.model'
 import styles from './LandingMovie.module.scss'
 
@@ -48,8 +50,14 @@ const LandingMovie: React.FC = () => {
         psychopathic crime figure.
       </p>
       <div>
-        <Button type='play' />
-        <Button type='add' />
+        <Button type='red'>
+          <PlayLogo />
+          PLAY
+        </Button>
+        <Button type='black'>
+          <AddLogo />
+          MY LIST
+        </Button>
       </div>
     </div>
   )
