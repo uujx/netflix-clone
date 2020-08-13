@@ -22,7 +22,8 @@ module.exports = {
 
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: '/'
   },
 
   mode: 'development',
@@ -30,8 +31,9 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     port: 8088,
-    hot: true
-    // open: true
+    hot: true,
+    open: true,
+    historyApiFallback: true
   },
 
   devtool: 'source-map',
@@ -74,12 +76,7 @@ module.exports = {
       {
         test: /\.(sc|sa|c)ss$/,
         exclude: /\.module\.(sc|sa|c)ss$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          PostCSSLoader,
-          'sass-loader'
-        ]
+        use: ['style-loader', 'css-loader', PostCSSLoader, 'sass-loader']
       },
       {
         test: /\.(png|jpg)$/,
@@ -91,9 +88,9 @@ module.exports = {
         test: /\.svg$/,
         exclude: /node_modules/,
         use: {
-          loader: 'svg-react-loader',
-        },
-      },
+          loader: 'svg-react-loader'
+        }
+      }
     ]
   },
 
