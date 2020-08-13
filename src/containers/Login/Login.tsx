@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react'
+import { NavLink } from 'react-router-dom'
 
 import bgImg from '../../assets/images/login-background.jpg'
 import styles from './Login.module.scss'
@@ -8,6 +9,7 @@ const Login: React.FC = () => {
   const pwdInputRef = useRef<HTMLInputElement>(null)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [isLogin, setIsLogin] = useState(true)
 
   const onEmailChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value)
@@ -43,17 +45,36 @@ const Login: React.FC = () => {
     }
   }
 
+  const onSwitchSignUp = () => {
+    setIsLogin((prevState) => !prevState)
+  }
+
   const backgroundStyle = {
     backgroundImage: `url(${bgImg})`,
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat'
   }
 
+  let signInOrSignUp
+  if (isLogin) {
+    signInOrSignUp = (
+      <p className={styles.SignupText}>
+        New to Netflix-clone? <span className={styles.Link} onClick={onSwitchSignUp}>Sign Up Now</span>.
+      </p>
+    )
+  } else {
+    signInOrSignUp = (
+      <p className={styles.SignupText}>
+        Have an account? <span className={styles.Link} onClick={onSwitchSignUp}>Log in</span>.
+      </p>
+    )
+  }
+
   return (
     <div style={backgroundStyle}>
       <div className={styles.TransparentBackground}>
         <div className={styles.ContentContainer}>
-          <h1 className={styles.Heading}>Sign In</h1>
+          <h1 className={styles.Heading}>{isLogin ? 'Sign In' : 'Sign Up'}</h1>
           <form className={styles.LoginForm}>
             <div className={styles.FormGroup}>
               <label htmlFor='email' className={styles.LabelContainer}>
@@ -91,8 +112,12 @@ const Login: React.FC = () => {
               </label>
             </div>
 
-            <button className={styles.Button}>Sign In</button>
+            <button className={styles.Button}>
+              {isLogin ? 'Sign In' : 'Sign Up'}
+            </button>
           </form>
+
+          {signInOrSignUp}
         </div>
       </div>
     </div>
