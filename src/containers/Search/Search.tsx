@@ -1,39 +1,34 @@
 import React, { useState, useRef, useCallback } from 'react'
+import { useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { ThunkDispatch } from 'redux-thunk'
 import _ from 'lodash'
 
-import axios from '../../axios-movies'
+import { RootState } from '../../store/reducers/index'
 import SearchIcon from '../../assets/images/search-icon.svg'
+import * as actions from '../../store/actions/index'
+import * as types from '../../store/actions/actionTypes'
 import styles from './Search.module.scss'
 
 const Search: React.FC = () => {
   const [search, setSearch] = useState<string>('')
   const inputRef = useRef<HTMLInputElement>(null)
-  const fetchResult = useCallback(
-    _.debounce(
-      () => {
-        console.log('fetching...')
-        axios
-          .get(
-            `/search/movie?query=${encodeURIComponent(inputRef.current!.value)}`
-          )
-          .then((res) => {
-            // TODO: route to the search result page
-            console.log(res)
-          })
-      },
-      800,
-      { leading: false, trailing: true }
-    ),
-    []
-  )
+  const history = useHistory()
+  const dispatch = useDispatch<
+    ThunkDispatch<RootState, undefined, types.SearchActionTypes>
+  >()
+  const debouncedDispatch = useCallback(_.debounce(dispatch, 800), [])
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(event.target.value)
+    const newSearch = event.target.value
+    setSearch(newSearch)
 
-    if (event.target.value !== '') {
-      fetchResult()
+    if (newSearch !== '') {
+      debouncedDispatch(actions.search(newSearch))
+      history.push('/search')
+    } else {
+      history.push('/')
     }
-    // TODO: else route to the home page
   }
 
   return (
