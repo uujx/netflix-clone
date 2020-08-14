@@ -9,24 +9,24 @@ const initialState: MoviesState = {
 
 const reducer = (
   state = initialState,
-  action: types.SearchActionTypes
+  action: types.FetchActionTypes
 ): MoviesState => {
   switch (action.type) {
-    case types.SEARCH_START:
+    case types.FETCH_START:
       return {
         ...state,
         loading: true,
         error: ''
       }
 
-    case types.SEARCH_FAIL:
+    case types.FETCH_FAIL:
       return {
         ...state,
         loading: false,
         error: action.error
       }
 
-    case types.SEARCH_SUCCESS:
+    case types.FETCH_SUCCESS:
       return {
         ...state,
         loading: false,

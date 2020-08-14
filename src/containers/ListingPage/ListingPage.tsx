@@ -5,12 +5,15 @@ import Poster from '../../components/Poster/Poster'
 import { RootState } from '../../store/reducers/index'
 import useModal from '../../hooks/useModal'
 import { Movie } from '../../model/Movie.model'
-import styles from './SearchPage.module.scss'
+import * as stateTypes from '../../store/reducers/stateTypes'
+import styles from './ListingPage.module.scss'
 
-const SearchPage: React.FC = () => {
-  const { movies, loading, error } = useSelector(
-    (state: RootState) => state.search
-  )
+interface ListingPageProps {
+  stateSelector: (state: RootState) => stateTypes.MoviesState
+}
+
+const ListingPage: React.FC<ListingPageProps> = (props) => {
+  const { movies, loading, error } = useSelector(props.stateSelector)
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null)
   const { modal, setShowModal } = useModal(selectedMovie)
 
@@ -20,7 +23,11 @@ const SearchPage: React.FC = () => {
   }
 
   const posters = movies.map((movie) => (
-    <Poster key={movie.id} imgUrl={movie.poster_path} clicked={onSelectMovie.bind(null, movie)} />
+    <Poster
+      key={movie.id}
+      imgUrl={movie.poster_path}
+      clicked={onSelectMovie.bind(null, movie)}
+    />
   ))
 
   return (
@@ -31,4 +38,4 @@ const SearchPage: React.FC = () => {
   )
 }
 
-export default SearchPage
+export default ListingPage

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import styles from './NavigationItem.module.scss'
 
@@ -10,7 +11,7 @@ interface NavigationItemProps {
 const NavigationItem: React.FC<NavigationItemProps> = (props) => {
   return (
     <li className={styles.NavigationItem}>
-      <a href={props.url}>{props.name}</a>
+      <Link to={props.url}>{props.name}</Link>
     </li>
   )
 }

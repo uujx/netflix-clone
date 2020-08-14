@@ -4,7 +4,8 @@ import { Route, Switch } from 'react-router-dom'
 import Home from './containers/Home/Home'
 import NotFound from './components/NotFound/NotFound'
 import Login from './containers/Login/Login'
-import SearchPage from './containers/SearchPage/SearchPage'
+import SearchResPage from './components/SearchResPage/SearchResPage'
+import TVShowsPage from './components/TVShowsPage/TVShowsPage'
 import Layout from './hoc/Layout/Layout'
 
 const App: React.FC = () => {
@@ -12,7 +13,8 @@ const App: React.FC = () => {
     <Switch>
       <Route exact path='/' component={Home} />
       <Route path='/login' component={Login} />
-      <Route path='/search' component={SearchPage} />
+      <Route path='/search' component={SearchResPage} />
+      <Route path='/tv' component={TVShowsPage} />
       <Route component={NotFound} />
     </Switch>
   )

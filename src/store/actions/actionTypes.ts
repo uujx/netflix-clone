@@ -20,3 +20,29 @@ export type SearchActionTypes =
   | SearchStartAction
   | SearchSuccessAction
   | SearchFailAction
+
+
+  export const FETCH_START = 'FETCH_START'
+  export const FETCH_SUCCESS = 'FETCH_SUCCESS'
+  export const FETCH_FAIL = 'FETCH_FAIL'
+  
+  export interface FetchStartAction {
+    type: typeof FETCH_START
+  }
+  
+  export interface FetchSuccessAction {
+    type: typeof FETCH_SUCCESS
+    movies: any[]
+  }
+  
+  export interface FetchFailAction {
+    type: typeof FETCH_FAIL
+    error: string
+  }
+  
+  export type FetchActionTypes =
+    | FetchStartAction
+    | FetchSuccessAction
+    | FetchFailAction
+
+

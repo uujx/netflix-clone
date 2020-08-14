@@ -11,7 +11,7 @@ interface PosterProps {
 const Poster: React.FC<PosterProps> = (props) => {
   return (
     <div className={styles.PosterContainer} onClick={props.clicked}>
-      <img src={`http://image.tmdb.org/t/p/original${props.imgUrl}`} />
+      <img src={`http://image.tmdb.org/t/p/w342${props.imgUrl}`} />
     </div>
   )
 }

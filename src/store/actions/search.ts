@@ -29,7 +29,6 @@ export const search = (query: string) => {
   return (
     dispatch: ThunkDispatch<RootState, undefined, types.SearchActionTypes>
   ) => {
-    console.log('[action]')
     dispatch(searchStart())
 
     axios
@@ -43,7 +42,7 @@ export const search = (query: string) => {
         dispatch(searchSuccess(filteredRes))
       })
       .catch((err) => {
-        console.log(err)
+        dispatch(searchFail(err.response.data.errors[0]))
       })
   }
 }
