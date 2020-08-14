@@ -9,7 +9,7 @@ const Navigation: React.FC = () => {
       <NavigationItem url='/' name='Home' />
       <NavigationItem url='/tv' name='TV Shows' />
       <NavigationItem url='/movies' name='Movies' />
-      <NavigationItem url='' name='Recently Added' />
+      <NavigationItem url='/recent' name='Recently Added' />
       <NavigationItem url='' name='My List' />
     </NavContainer>
   )
