@@ -8,6 +8,7 @@ import mylist from './mylist'
 import action from './action'
 import horror from './horror'
 import docu from './docu'
+import movies from './movies'
 
 export const rootReducer = combineReducers({
   search,
@@ -18,7 +19,8 @@ export const rootReducer = combineReducers({
   mylist,
   action,
   horror,
-  docu
+  docu,
+  movies
 })
 
 export type RootState = ReturnType<typeof rootReducer>

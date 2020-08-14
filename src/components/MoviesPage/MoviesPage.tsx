@@ -3,16 +3,16 @@ import { useDispatch } from 'react-redux'
 
 import ListingPage from '../../containers/ListingPage/ListingPage'
 import { RootState } from '../../store/reducers/index'
-import { fetchTVs } from '../../store/actions/index'
+import { fetchMovies } from '../../store/actions/index'
 
-const TVShowsPage: React.FC = () => {
+const MoviesPage: React.FC = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(fetchTVs())
+    dispatch(fetchMovies())
   }, [])
 
-  return <ListingPage stateSelector={(state: RootState) => state.tv} />
+  return <ListingPage stateSelector={(state: RootState) => state.movies} />
 }
 
-export default TVShowsPage
+export default MoviesPage

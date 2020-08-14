@@ -204,3 +204,26 @@ export type FetchDocuActionTypes =
   | FetchDocuStartAction
   | FetchDocuSuccessAction
   | FetchDocuFailAction
+
+export const FETCH_MOVIES_START = 'FETCH_MOVIES_START'
+export const FETCH_MOVIES_SUCCESS = 'FETCH_MOVIES_SUCCESS'
+export const FETCH_MOVIES_FAIL = 'FETCH_MOVIES_FAIL'
+
+export interface FetchMoviesStartAction {
+  type: typeof FETCH_MOVIES_START
+}
+
+export interface FetchMoviesSuccessAction {
+  type: typeof FETCH_MOVIES_SUCCESS
+  movies: any[]
+}
+
+export interface FetchMoviesFailAction {
+  type: typeof FETCH_MOVIES_FAIL
+  error: string
+}
+
+export type FetchMoviesActionTypes =
+  | FetchMoviesStartAction
+  | FetchMoviesSuccessAction
+  | FetchMoviesFailAction
