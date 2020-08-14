@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import Poster from '../../components/Poster/Poster'
+import Spinner from '../../components/UI/Spinner/Spinner'
 import { RootState } from '../../store/reducers/index'
 import useModal from '../../hooks/useModal'
 import { Movie } from '../../model/Movie.model'
@@ -32,7 +33,7 @@ const ListingPage: React.FC<ListingPageProps> = (props) => {
 
   return (
     <div className={styles.Container}>
-      {posters}
+      {loading ? <Spinner /> : posters}
       {modal}
     </div>
   )
