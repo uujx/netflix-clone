@@ -9,24 +9,24 @@ const initialState: MoviesState = {
 
 const reducer = (
   state = initialState,
-  action: types.FetchActionTypes
+  action: types.FetchNetflixActionTypes
 ): MoviesState => {
   switch (action.type) {
-    case types.FETCH_START:
+    case types.FETCH_NETFLIX_START:
       return {
         ...state,
         loading: true,
         error: ''
       }
 
-    case types.FETCH_FAIL:
+    case types.FETCH_NETFLIX_FAIL:
       return {
         ...state,
         loading: false,
         error: action.error
       }
 
-    case types.FETCH_SUCCESS:
+    case types.FETCH_NETFLIX_SUCCESS:
       return {
         ...state,
         loading: false,

@@ -2,26 +2,39 @@ import React from 'react'
 
 import Showcase from '../Showcase/Showcase'
 import NetflixOriginals from '../NetflixOriginals/NetflixOriginals'
+import { RootState } from '../../store/reducers/index'
+import * as actions from '../../store/actions/index'
 
 const MainContent: React.FC = () => {
   return (
     <div>
       <NetflixOriginals />
-      <Showcase title='My List' api='/trending/all/day' />
-      <Showcase title='Trending Now' api='/trending/all/day' />
-      <Showcase title='Top Rated' api='/movie/top_rated' />
+      <Showcase
+        title='Trending Now'
+        stateSelector={(state: RootState) => state.trending}
+        action={actions.fetchTrending}
+      />
+      <Showcase
+        title='Top Rated'
+        stateSelector={(state: RootState) => state.top}
+        action={actions.fetchTops}
+      />
       <Showcase
         title='Action Movies'
-        api='/discover/movie?sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=28'
+        stateSelector={(state: RootState) => state.action}
+        action={actions.fetchAction}
       />
       <Showcase
         title='Horror Movies'
-        api='/discover/movie?sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=27'
+        stateSelector={(state: RootState) => state.horror}
+        action={actions.fetchHorror}
       />
       <Showcase
         title='Documentary'
-        api='/discover/movie?sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=99'
+        stateSelector={(state: RootState) => state.docu}
+        action={actions.fetchDocu}
       />
+      {/* <Showcase title='My List' api='/trending/all/day' /> */}
     </div>
   )
 }

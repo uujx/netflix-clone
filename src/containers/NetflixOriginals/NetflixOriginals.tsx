@@ -1,27 +1,27 @@
 import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import SwiperCore, { Navigation } from 'swiper'
-import axios from '../../axios-movies'
 
-import { Movie, FetchingMovieResponse } from '../../model/Movie.model'
+import Spinner from '../../components/UI/Spinner/Spinner'
+import { Movie } from '../../model/Movie.model'
 import useModal from '../../hooks/useModal'
+import * as actions from '../../store/actions/index'
+import { RootState } from '../../store/reducers/index'
 import styles from './NetflixOriginal.module.scss'
 
 SwiperCore.use([Navigation])
 
 const NetflixOriginals: React.FC = () => {
-  const [netflixMovies, setNetflixMovies] = useState<Array<Movie>>([])
+  const { movies, loading, error } = useSelector(
+    (state: RootState) => state.netflix
+  )
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null)
   const { modal, setShowModal } = useModal(selectedMovie)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    axios
-      .get<FetchingMovieResponse>(
-        'discover/tv?sort_by=popularity.desc&page=1&timezone=America%2FNew_York&with_networks=213&include_null_first_air_dates=false'
-      )
-      .then((res) => {
-        setNetflixMovies(res.data.results)
-      })
+    dispatch(actions.fetchNetflix())
   }, [])
 
   const onSelectMovie = (movie: Movie) => {
@@ -29,7 +29,7 @@ const NetflixOriginals: React.FC = () => {
     setShowModal(true)
   }
 
-  const movies = netflixMovies.map((movie) => (
+  const posters = movies.map((movie) => (
     <SwiperSlide key={movie.id} className={styles.Poster}>
       <img
         src={`http://image.tmdb.org/t/p/original${movie.poster_path}`}
@@ -42,18 +42,21 @@ const NetflixOriginals: React.FC = () => {
     <div className={styles.MovieShowcase}>
       <h2 className={styles.Heading}>Netflix Originals</h2>
 
-      <Swiper
-        className={styles.MoviesContainer}
-        spaceBetween={20}
-        slidesPerView={6}
-        slidesPerGroup={4}
-        speed={1000}
-        navigation
-        onSlideChange={() => console.log('slide change')}
-        onSwiper={(swiper) => console.log(swiper)}>
-        {movies}
-      </Swiper>
-
+      {loading ? (
+        <Spinner />
+      ) : (
+        <Swiper
+          className={styles.MoviesContainer}
+          spaceBetween={20}
+          slidesPerView={6}
+          slidesPerGroup={4}
+          speed={1000}
+          navigation
+          onSlideChange={() => console.log('slide change')}
+          onSwiper={(swiper) => console.log(swiper)}>
+          {posters}
+        </Swiper>
+      )}
       {modal}
     </div>
   )

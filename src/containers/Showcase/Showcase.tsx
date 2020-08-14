@@ -1,34 +1,36 @@
 import React, { useState, useEffect } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import SwiperCore, { Navigation } from 'swiper'
-import axios from '../../axios-movies'
+import { useSelector, useDispatch } from 'react-redux'
 
-import { Movie, FetchingMovieResponse } from '../../model/Movie.model'
+import Spinner from '../../components/UI/Spinner/Spinner'
+import { Movie } from '../../model/Movie.model'
 import useModal from '../../hooks/useModal'
+import { RootState } from '../../store/reducers/index'
+import * as stateTypes from '../../store/reducers/stateTypes'
 import styles from './Showcase.module.scss'
 
 SwiperCore.use([Navigation])
 
 interface ShowcaseProps {
   title: string
-  api: string
+  stateSelector: (state: RootState) => stateTypes.MoviesState
+  action: Function
+  spaceBetween?: number
+  slidesPerView?: number
+  slidesPerGroup?: number
 }
 
 const Showcase: React.FC<ShowcaseProps> = (props) => {
-  const [movies, setMovies] = useState<Array<Movie>>([])
+  const { movies, loading, error } = useSelector(props.stateSelector)
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null)
   const { modal, setShowModal } = useModal(selectedMovie)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    axios.get<FetchingMovieResponse>(props.api).then((res) => {
-      const filteredMovies = res.data.results.filter(movie => {
-        if (!movie.backdrop_path) {
-          return false
-        }
-        return true
-      })
-      setMovies(filteredMovies)
-    })
+    if (movies.length === 0) {
+      dispatch(props.action())
+    }
   }, [])
 
   const onSelectMovie = (movie: Movie) => {
@@ -40,7 +42,7 @@ const Showcase: React.FC<ShowcaseProps> = (props) => {
     <SwiperSlide key={movie.id} className={styles.Poster}>
       {/* <h1 className={styles.Title}>{movie.title || movie.name}</h1> */}
       <img
-        src={`http://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+        src={`http://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
         alt={movie.title}
         onClick={onSelectMovie.bind(null, movie)}
       />
@@ -50,19 +52,21 @@ const Showcase: React.FC<ShowcaseProps> = (props) => {
   return (
     <div className={styles.MovieShowcase}>
       <h2 className={styles.Heading}>{props.title}</h2>
-
-      <Swiper
-        className={styles.MoviesContainer}
-        spaceBetween={10}
-        slidesPerView={7}
-        slidesPerGroup={4}
-        speed={1000}
-        navigation
-        onSlideChange={() => console.log('slide change')}
-        onSwiper={(swiper) => console.log(swiper)}>
-        {swiperMovies}
-      </Swiper>
-
+      {loading ? (
+        <Spinner />
+      ) : (
+        <Swiper
+          className={styles.MoviesContainer}
+          spaceBetween={props.spaceBetween || 10}
+          slidesPerView={props.slidesPerView || 7}
+          slidesPerGroup={props.slidesPerGroup || 4}
+          speed={1000}
+          navigation
+          onSlideChange={() => console.log('slide change')}
+          onSwiper={(swiper) => console.log(swiper)}>
+          {swiperMovies}
+        </Swiper>
+      )}
       {modal}
     </div>
   )
