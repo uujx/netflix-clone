@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
 
 import Search from '../Search/Search'
-import Navigation from '../../components/Navigation/Navigation'
 import NetflixLogo from '../../components/UI/NetflixLogo/NetflixLogo'
-import OtherNavigation from '../../components/OtherNavigation/OtherNavigation'
 import BellLogo from '../../components/UI/BellLogo/BellLogo'
+import NavigationItem from '../../components/NavigationItem/NavigationItem'
 import styles from './Header.module.scss'
 
 const Header: React.FC = () => {
@@ -33,9 +32,18 @@ const Header: React.FC = () => {
   return (
     <header className={backgroundStyle.join(' ')}>
       <NetflixLogo />
-      <Navigation />
+      <nav className={styles.NavContainer}>
+        <NavigationItem url='/' name='Home' />
+        <NavigationItem url='/tv' name='TV Shows' />
+        <NavigationItem url='/movies' name='Movies' />
+        <NavigationItem url='/recent' name='Recently Added' />
+        <NavigationItem url='' name='My List' />
+      </nav>
       <Search />
-      <OtherNavigation />
+      <nav className={styles.NavContainer}>
+        <NavigationItem url='' name='KIDS' />
+        <NavigationItem url='' name='DVD' />
+      </nav>
       <BellLogo />
     </header>
   )

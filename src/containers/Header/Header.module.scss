@@ -1,12 +1,17 @@
 .Header {
   position: fixed;
   width: 100%;
-  padding: .5vw 2vw;
+  padding: 0.5vw 2vw;
   display: flex;
   align-items: center;
   background-color: transparent;
   z-index: 500;
   transition: all 1s ease-out;
+
+  .NavContainer {
+    display: flex;
+    list-style: none;
+  }
 }
 
 .Black {
