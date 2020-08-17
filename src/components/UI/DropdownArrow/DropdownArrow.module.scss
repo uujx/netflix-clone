@@ -1,0 +1,14 @@
+@use '../../../assets/scss/function';
+
+.Arrow {
+  display: none;
+  max-width: 1.5rem;
+  max-height: 1.5rem;
+  fill: white;
+  margin-left: 1rem;
+  cursor: pointer;
+
+  @include function.responsive(pad) {
+    display: inline-block;
+  };
+}

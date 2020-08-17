@@ -1,7 +1,21 @@
+@use '../../assets/scss/function';
+
 .PosterContainer {
   width: 11%;
-  height: 280px;
-  margin-bottom: 80px;
+  height: 10%;
+  margin-bottom: 8rem;
+
+  @include function.responsive(pad) {
+    width: 15%;
+    height: 15%;
+    margin-bottom: 5rem;
+  }
+
+  @include function.responsive(phone) {
+    width: 32%;
+    height: 32%;
+    margin-bottom: 3rem;
+  }
   
   img {
     width: 100%;

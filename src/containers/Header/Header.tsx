@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 import Search from '../Search/Search'
 import NetflixLogo from '../../components/UI/NetflixLogo/NetflixLogo'
+import DropdownArrow from '../../components/UI/DropdownArrow/DropdownArrow'
 import BellLogo from '../../components/UI/BellLogo/BellLogo'
 import NavigationItem from '../../components/NavigationItem/NavigationItem'
 import styles from './Header.module.scss'
 
 const Header: React.FC = () => {
   const [isScroll, setIsScroll] = useState(false)
+  const navRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     window.addEventListener('scroll', onScrollHandler)
@@ -24,6 +26,10 @@ const Header: React.FC = () => {
     }
   }
 
+  const onToggleDrawer = () => {
+    navRef.current?.classList.toggle(styles.Show)
+  }
+
   const backgroundStyle = [styles.Header]
   if (isScroll) {
     backgroundStyle.push(styles.Black)
@@ -32,7 +38,8 @@ const Header: React.FC = () => {
   return (
     <header className={backgroundStyle.join(' ')}>
       <NetflixLogo />
-      <nav className={styles.NavContainer}>
+      <DropdownArrow clicked={onToggleDrawer}/>
+      <nav className={styles.MainNav} ref={navRef} onClick={onToggleDrawer}>
         <NavigationItem url='/' name='Home' />
         <NavigationItem url='/tv' name='TV Shows' />
         <NavigationItem url='/movies' name='Movies' />
@@ -40,7 +47,7 @@ const Header: React.FC = () => {
         <NavigationItem url='' name='My List' />
       </nav>
       <Search />
-      <nav className={styles.NavContainer}>
+      <nav className={styles.OtherNav}>
         <NavigationItem url='' name='KIDS' />
         <NavigationItem url='' name='DVD' />
       </nav>

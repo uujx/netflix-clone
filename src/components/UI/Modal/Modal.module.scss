@@ -1,3 +1,5 @@
+@use '../../../assets/scss/function';
+
 .Container {
   position: fixed;
   width: 100%;
@@ -5,6 +7,10 @@
   z-index: 300;
   top: 0;
   left: 0;
+
+  @include function.responsive(pad) {
+    height: 50%;
+  }
 }
 
 .Show {

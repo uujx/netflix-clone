@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import Spinner from '../../components/UI/Spinner/Spinner'
 import { Movie } from '../../model/Movie.model'
 import useModal from '../../hooks/useModal'
+import useWindowWidth from '../../hooks/useWindowWidth'
 import { RootState } from '../../store/reducers/index'
 import * as stateTypes from '../../store/reducers/stateTypes'
 import styles from './Showcase.module.scss'
@@ -16,9 +17,6 @@ interface ShowcaseProps {
   title: string
   stateSelector: (state: RootState) => stateTypes.MoviesState
   action: Function
-  spaceBetween?: number
-  slidesPerView?: number
-  slidesPerGroup?: number
 }
 
 const Showcase: React.FC<ShowcaseProps> = (props) => {
@@ -26,6 +24,19 @@ const Showcase: React.FC<ShowcaseProps> = (props) => {
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null)
   const { modal, setShowModal } = useModal(selectedMovie)
   const dispatch = useDispatch()
+
+  const width = useWindowWidth()
+  let slidesPerView: number, slidesPerGroup: number
+  if (width <= 600) {
+    slidesPerView = 4
+    slidesPerGroup = 2
+  } else if (width <= 1024) {
+    slidesPerView = 5
+    slidesPerGroup = 3
+  } else {
+    slidesPerView = 7
+    slidesPerGroup = 4
+  }
 
   useEffect(() => {
     if (movies.length === 0) {
@@ -57,9 +68,9 @@ const Showcase: React.FC<ShowcaseProps> = (props) => {
       ) : (
         <Swiper
           className={styles.MoviesContainer}
-          spaceBetween={props.spaceBetween || 10}
-          slidesPerView={props.slidesPerView || 7}
-          slidesPerGroup={props.slidesPerGroup || 4}
+          spaceBetween={10}
+          slidesPerView={slidesPerView}
+          slidesPerGroup={slidesPerGroup}
           speed={1000}
           navigation
           onSlideChange={() => console.log('slide change')}

@@ -1,10 +1,20 @@
+@use '../../assets/scss/function';
+
 .Container {
   width: 100%;
   // height: 100vh;
-  padding: 10% 10%;
   display: flex;
   align-content: flex-start;
   flex-wrap: wrap;
   padding: 10% 5% 0;
   column-gap: 1.5%;
+
+  @include function.responsive(pad) {
+    column-gap: 2%;
+  }
+
+  @include function.responsive(phone) {
+    padding: 15% 5% 0;
+    column-gap: 1%;
+  }
 }

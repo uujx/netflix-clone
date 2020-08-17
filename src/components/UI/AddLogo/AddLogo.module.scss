@@ -1,6 +1,13 @@
+@use '../../../assets/scss/function';
+
 .Logo {
-  width: .8vw;
-  height: .8vw;
+  width: 1.5rem;
+  height: 1.5rem;
   fill: #FFF;
-  margin-right: .5vw;
+  margin-right: .6rem;
+
+  @include function.responsive(phone) {
+    max-width: 1.3rem;
+    max-height: 1.3rem;
+  }
 }

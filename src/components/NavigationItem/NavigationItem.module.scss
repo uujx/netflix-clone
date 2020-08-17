@@ -1,21 +1,42 @@
+@use '../../assets/scss/function';
+
 .NavigationItem {
-  margin: 0 .5vw;
+  margin: 0 1rem;
   height: auto;
+
+  @include function.responsive(pad) {
+    padding: 1.5rem 0;
+  }
+
+  @include function.responsive(phone) {
+    padding: 1rem 0;
+  }
 
   a {
     text-decoration: none;
     color: #d2d2d2;
     transition: color 100ms;
     font-weight: 500;
-    font-size: .9vw;
-  }
 
-  a:link,
-  a:visited {
-    color: #d2d2d2;
-  }
+    &:link,
+    &:visited {
+      color: #d2d2d2;
+    }
 
-  a:hover {
-    color: #9c9c9c;
+    &:hover {
+      color: #9c9c9c;
+    }
+
+    @include function.responsive(desktop) {
+      font-size: 1.8rem;
+    }
+
+    @include function.responsive(pad) {
+      font-size: 1.5rem;
+    }
+
+    @include function.responsive(phone) {
+      font-size: 1.3rem;
+    }
   }
 }

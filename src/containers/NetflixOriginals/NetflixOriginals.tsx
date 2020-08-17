@@ -6,6 +6,7 @@ import SwiperCore, { Navigation } from 'swiper'
 import Spinner from '../../components/UI/Spinner/Spinner'
 import { Movie } from '../../model/Movie.model'
 import useModal from '../../hooks/useModal'
+import useWindowWidth from '../../hooks/useWindowWidth'
 import * as actions from '../../store/actions/index'
 import { RootState } from '../../store/reducers/index'
 import styles from './NetflixOriginal.module.scss'
@@ -19,6 +20,19 @@ const NetflixOriginals: React.FC = () => {
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null)
   const { modal, setShowModal } = useModal(selectedMovie)
   const dispatch = useDispatch()
+
+  const width = useWindowWidth()
+  let slidesPerView: number, slidesPerGroup: number
+  if (width <= 600) {
+    slidesPerView = 2
+    slidesPerGroup = 1
+  } else if (width <= 1024) {
+    slidesPerView = 4
+    slidesPerGroup = 2
+  } else {
+    slidesPerView = 6
+    slidesPerGroup = 4
+  }
 
   useEffect(() => {
     dispatch(actions.fetchNetflix())
@@ -48,8 +62,8 @@ const NetflixOriginals: React.FC = () => {
         <Swiper
           className={styles.MoviesContainer}
           spaceBetween={20}
-          slidesPerView={6}
-          slidesPerGroup={4}
+          slidesPerView={slidesPerView}
+          slidesPerGroup={slidesPerGroup}
           speed={1000}
           navigation
           onSlideChange={() => console.log('slide change')}

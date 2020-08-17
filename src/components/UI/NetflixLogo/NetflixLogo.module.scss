@@ -1,6 +1,16 @@
+@use '../../../assets/scss/function';
+
 .LogoContainer {
-  width: 8vw;
+  width: 12rem;
   cursor: pointer;
+
+  @include function.responsive(pad) {
+    width: 10rem;
+  };
+
+  @include function.responsive(phone) {
+    width: 8rem;
+  };
 
   .Logo {
     max-width: 100%;

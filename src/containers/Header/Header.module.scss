@@ -1,3 +1,5 @@
+@use '../../assets/scss/function';
+
 .Header {
   position: fixed;
   width: 100%;
@@ -8,9 +10,35 @@
   z-index: 500;
   transition: all 1s ease-out;
 
-  .NavContainer {
-    display: flex;
+  .MainNav {
     list-style: none;
+    display: flex;
+  
+    @include function.responsive(pad) {
+      position: absolute;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transform: translate(25%, 60%);
+      background-color: black;
+      border-radius: 3px;
+      padding: 0 1rem;
+      visibility: hidden;
+    };
+  }
+
+  .Show {
+    visibility: visible;
+    transition: visibility 150ms;
+  }
+
+  .OtherNav {
+    list-style: none;
+    display: flex;
+
+    @include function.responsive(phone) {
+      display: none;
+    };
   }
 }
 

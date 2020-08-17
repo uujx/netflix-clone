@@ -1,13 +1,21 @@
+@use '../../../assets/scss/function';
+
 .Button {
   color: white;
-  font-size: .8vw;
+  font-size: 1.5rem;
   border-radius: 5px;
-  margin: 20px 20px 20px 0;
-  padding: 10px 20px;
+  margin: 2rem 2rem 2rem 0;
+  padding: 1rem 2rem;
   cursor: pointer;
   transition: transform 300ms;
   box-shadow: none;
   outline: none;
+
+  @include function.responsive(phone) {
+    margin: 1rem 1rem 1rem 0;
+    padding: .5rem 1rem;
+    font-size: .8rem;
+  }
 
   &:hover {
     transform: scale(1.1);
