@@ -7,7 +7,7 @@ import thunk from 'redux-thunk'
 
 import App from './app'
 import { rootReducer } from './store/reducers/index'
-import './index.css'
+import './index.scss'
 import 'swiper/swiper-bundle.css'
 
 const composeEnhancers =
