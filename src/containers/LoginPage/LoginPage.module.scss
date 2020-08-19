@@ -1,3 +1,5 @@
+@use '../../assets/scss/function';
+
 .TransparentBackground {
   background-color: rgba($color: #000000, $alpha: 0.5);
   width: 100%;
@@ -10,17 +12,29 @@
     background-color: rgba($color: #000000, $alpha: 0.8);
     display: flex;
     flex-direction: column;
-    padding: 60px 68px 40px;
+    padding: 6rem 6.8rem 4rem;
     border-radius: 3px;
 
+    @include function.responsive(phone) {
+      padding: 5rem 3rem 4rem;
+    }
+
     .Heading {
-      font-size: 36px;
+      font-size: 3.6rem;
       font-weight: bold;
-      margin: 10px 0;
+      margin: 1rem 0;
+
+      @include function.responsive(phone) {
+        font-size: 2.4rem;
+      }
     }
 
     .LoginForm {
-      width: 320px;
+      width: 32rem;
+
+      @include function.responsive(phone) {
+        width: 25rem;
+      }
 
       .FormGroup {
         margin: 10px 0;
@@ -33,23 +47,31 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            left: 20px;
+            left: 2rem;
             display: inline-block;
-            font-size: 18px;
+            font-size: 1.8rem;
             color: #8c8c8c;
             transition: all 100ms ease-in-out;
+
+            @include function.responsive(phone) {
+              font-size: 1.4rem;
+            }
           }
 
           .InputControl {
             background-color: #333333;
             width: 100%;
-            font-size: 18px;
+            font-size: 1.8rem;
             outline: none;
             border: 1px solid black;
-            padding: 16px 20px 0;
-            height: 50px;
+            padding: 1.6rem 2rem 0;
+            height: 5rem;
             border-radius: 5px;
             color: white;
+
+            @include function.responsive(phone) {
+              font-size: 1.4rem;
+            }
           }
 
           .HasText {
@@ -57,8 +79,12 @@
 
           .HasText + .Label,
           .InputControl:focus + .Label {
-            top: 14px;
-            font-size: 14px;
+            top: 1.4rem;
+            font-size: 1.4rem;
+
+            @include function.responsive(phone) {
+              font-size: 1.1rem;
+            }
           }
         }
       }
@@ -67,8 +93,8 @@
         color: white;
         font-size: 0.8vw;
         border-radius: 5px;
-        margin: 20px 20px 20px 0;
-        padding: 15px 20px;
+        margin: 2rem 2rem 2rem 0;
+        padding: 1.5rem 2rem;
         cursor: pointer;
         transition: transform 300ms;
         box-shadow: none;
@@ -76,21 +102,35 @@
         width: 100%;
         border: none;
         background-color: #e50914;
-        font-size: 20px;
+        font-size: 2rem;
         font-weight: bold;
+
+        @include function.responsive(phone) {
+          margin: 1rem 1rem 1rem 0;
+          padding: 1rem 1.5rem;
+          font-size: 1.4rem;
+        }
       }
     }
 
     .SignupText {
-      margin: 10px 0;
+      margin: 1rem 0;
       color: #888;
-      font-size: 20px;
+      font-size: 2rem;
+
+      @include function.responsive(phone) {
+        font-size: 1.4rem;
+      }
 
       .Link {
         color: white;
         font-size: 20px;
         text-decoration: none;
         cursor: pointer;
+
+        @include function.responsive(phone) {
+          font-size: 1.4rem;
+        }
       }
     }
   }

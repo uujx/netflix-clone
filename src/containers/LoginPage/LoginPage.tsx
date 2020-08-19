@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import bgImg from '../../assets/images/login-background.jpg'
-import styles from './Login.module.scss'
+import styles from './LoginPage.module.scss'
 
 const Login: React.FC = () => {
   const emailInputRef = useRef<HTMLInputElement>(null)
