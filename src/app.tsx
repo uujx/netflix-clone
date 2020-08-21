@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import Home from './containers/Home/Home'
 import NotFound from './components/NotFound/NotFound'
@@ -11,11 +11,21 @@ import MoviesPage from './components/MoviesPage/MoviesPage'
 import RecentPage from './components/RecentPage/RecentPage'
 import Logout from './components/Logout/Logout'
 import Layout from './hoc/Layout/Layout'
+import * as actions from './store/actions/index'
 import { RootState } from './store/reducers/index'
 
 const App: React.FC = () => {
   const { isAuthed } = useSelector((state: RootState) => state.auth)
-  console.log('[app]', isAuthed)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(actions.checkAuthValidity())
+
+    return () => {
+      console.log('[app] Cleaning up...')
+    }
+  }, [])
+
   let routes
   if (isAuthed) {
     routes = (

@@ -3,34 +3,37 @@ const validator = require('validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
-const userSchema = new mongoose.Schema({
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    validate(value) {
-      if (!validator.isEmail(value)) {
-        throw new Error('Invalid email address')
+const userSchema = new mongoose.Schema(
+  {
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      validate(value) {
+        if (!validator.isEmail(value)) {
+          throw new Error('Invalid email address')
+        }
       }
-    }
-  },
-  password: {
-    type: String,
-    required: true,
-    minlength: 4,
-    maxlength: 60
-  },
-  tokens: [
-    {
-      token: {
-        type: String,
-        required: true
+    },
+    password: {
+      type: String,
+      required: true,
+      minlength: 4,
+      maxlength: 60
+    },
+    tokens: [
+      {
+        token: {
+          type: String,
+          required: true
+        }
       }
-    }
-  ]
-}, {
-  timestamps: true
-})
+    ]
+  },
+  {
+    timestamps: true
+  }
+)
 
 userSchema.virtual('movies', {
   ref: 'Movie',
@@ -51,14 +54,17 @@ userSchema.methods.toJSON = function () {
 userSchema.methods.generateAuthToken = async function () {
   const user = this
 
+  const expireDate = new Date()
+  expireDate.setDate(new Date().getDate() + 7)
+
   const token = jwt.sign({ _id: user._id }, 'netflixclone', {
-    expiresIn: '2 seconds'
+    expiresIn: '7 days'
   })
 
   user.tokens = user.tokens.concat({ token })
   await user.save()
 
-  return token
+  return { token, expireDate }
 }
 
 userSchema.statics.findByCredentials = async (email, password) => {

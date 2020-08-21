@@ -12,19 +12,21 @@ import styles from './LoginPage.module.scss'
 type Inputs = {
   email: string
   password: string
+  remember: boolean
 }
 
 const Login: React.FC = () => {
   const { register, handleSubmit, errors } = useForm<Inputs>({
     defaultValues: {
       email: '',
-      password: ''
+      password: '',
+      remember: false
     }
   })
   const emailInputRef = useRef<HTMLInputElement | null>(null)
   const pwdInputRef = useRef<HTMLInputElement | null>(null)
   const [isLogin, setIsLogin] = useState(true)
-  const { loading, error, isAuthed, token } = useSelector(
+  const { loading, error, isAuthed } = useSelector(
     (state: RootState) => state.auth
   )
   const dispatch = useDispatch()
@@ -46,7 +48,13 @@ const Login: React.FC = () => {
     event: BaseSyntheticEvent<object, any, any> | undefined
   ) => {
     event?.preventDefault()
-    dispatch(actions.auth(data, isLogin))
+    dispatch(
+      actions.auth(
+        { email: data.email, password: data.password },
+        data.remember,
+        isLogin
+      )
+    )
   }
 
   const onSwitchSignUp = () => {
@@ -196,6 +204,19 @@ const Login: React.FC = () => {
                 </label>
               </label>
               {passwordError}
+            </div>
+
+            <div className={styles.CheckContainer}>
+              <input
+                className={styles.Checkbox}
+                name='remember'
+                type='checkbox'
+                id='remember'
+                ref={register({ required: false })}
+              />
+              <label htmlFor='remember' className={styles.CheckLabel}>
+                Remember me?
+              </label>
             </div>
 
             <button className={styles.Button} type='submit'>

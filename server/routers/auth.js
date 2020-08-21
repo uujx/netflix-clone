@@ -35,9 +35,9 @@ router.post('/api/auth/signin', async (req, res) => {
 
   try {
     const user = await User.findByCredentials(req.body.email, req.body.password)
-    const token = await user.generateAuthToken()
+    const { token, expireDate } = await user.generateAuthToken()
 
-    res.status(200).send({ user, token })
+    res.status(200).send({ user, token, expireDate })
   } catch (error) {
     res.status(400).send('Incorrect email address or password')
   }
@@ -45,7 +45,9 @@ router.post('/api/auth/signin', async (req, res) => {
 
 router.post('/api/auth/logout', auth, async (req, res) => {
   try {
-    req.user.tokens = req.user.tokens.filter((token) => token.token != req.token)
+    req.user.tokens = req.user.tokens.filter(
+      (token) => token.token != req.token
+    )
     await req.user.save()
 
     res.status(200).send()
