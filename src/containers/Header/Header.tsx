@@ -44,13 +44,9 @@ const Header: React.FC = () => {
         <NavigationItem url='/tv' name='TV Shows' />
         <NavigationItem url='/movies' name='Movies' />
         <NavigationItem url='/recent' name='Recently Added' />
-        <NavigationItem url='' name='My List' />
+        <NavigationItem url='/mylist' name='My List' />
       </nav>
       <Search />
-      <nav className={styles.OtherNav}>
-        <NavigationItem url='' name='KIDS' />
-        <NavigationItem url='' name='DVD' />
-      </nav>
       <BellLogo />
       <nav className={styles.OtherNav}>
         <NavigationItem url='/logout' name='Logout' />

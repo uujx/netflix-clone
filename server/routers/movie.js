@@ -8,15 +8,20 @@ router.post('/api/movies', auth, async (req, res) => {
   const keys = Object.keys(req.body)
   const allowedKeys = [
     'id',
+    'genre_ids',
     'title',
     'name',
+    'original_name',
     'poster_path',
     'backdrop_path',
     'overview',
     'release_date',
     'first_air_date',
     'vote_average',
-    'original_language'
+    'popularity',
+    'original_language',
+    'origin_country',
+    'vote_count'
   ]
   const isAllowed = keys.every((key) => allowedKeys.includes(key))
   if (!isAllowed) {
@@ -25,13 +30,12 @@ router.post('/api/movies', auth, async (req, res) => {
 
   const userId = req.user._id
   const movie = new Movie({ userId, ...req.body })
-  console.log(movie)
   try {
     await movie.save()
 
     res.status(201).send(movie)
   } catch (error) {
-    res.status(400).send('Movie or show is already in your list')
+    res.status(400).send(error._message)
   }
 })
 
@@ -58,6 +62,22 @@ router.get('/api/movies', auth, async (req, res) => {
       .execPopulate()
 
     res.status(200).send(req.user.movies)
+  } catch (error) {
+    res.status(500).send()
+  }
+})
+
+router.delete('/api/movies/:id', auth, async (req, res) => {
+  const movieId = parseInt(req.params.id)
+
+  try {
+    const movie = await Movie.findOneAndRemove({ id: movieId }).exec()
+    
+    if (!movie) {
+      return res.status(404).send()
+    }
+
+    res.status(200).send(movie)
   } catch (error) {
     res.status(500).send()
   }

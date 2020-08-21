@@ -56,6 +56,7 @@ userSchema.methods.generateAuthToken = async function () {
 
   const expireDate = new Date()
   expireDate.setDate(new Date().getDate() + 7)
+  // expireDate.setTime(new Date().getTime() + 20000)
 
   const token = jwt.sign({ _id: user._id }, 'netflixclone', {
     expiresIn: '7 days'

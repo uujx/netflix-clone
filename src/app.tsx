@@ -9,6 +9,7 @@ import SearchResPage from './components/SearchResPage/SearchResPage'
 import TVShowsPage from './components/TVShowsPage/TVShowsPage'
 import MoviesPage from './components/MoviesPage/MoviesPage'
 import RecentPage from './components/RecentPage/RecentPage'
+import MyListPage from './components/MyListPage/MyListPage'
 import Logout from './components/Logout/Logout'
 import Layout from './hoc/Layout/Layout'
 import * as actions from './store/actions/index'
@@ -38,6 +39,7 @@ const App: React.FC = () => {
           <Route path='/tv' component={TVShowsPage} />
           <Route path='/movies' component={MoviesPage} />
           <Route path='/recent' component={RecentPage} />
+          <Route path='/mylist' component={MyListPage} />
           <Route component={NotFound} />
         </Switch>
       </Layout>

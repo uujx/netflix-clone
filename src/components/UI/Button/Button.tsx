@@ -1,16 +1,15 @@
 import React from 'react'
 
-import PlayLogo from '../../../assets/images/play-button.svg'
-import AddLogo from '../../../assets/images/add.svg'
 import styles from './Button.module.scss'
 
 interface ButtonProps {
   type: 'red' | 'black'
+  clicked?: () => void
 }
 
 const Button: React.FC<ButtonProps> = (props) => {
   return (
-    <button className={props.type === 'red' ? styles.Red : styles.Black}>
+    <button className={props.type === 'red' ? styles.Red : styles.Black} onClick={props.clicked}>
       {props.children}
     </button>
   )

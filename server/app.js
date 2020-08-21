@@ -12,7 +12,8 @@ const connectionURL = 'mongodb://127.0.0.1:27017/netflix'
 
 mongoose.connect(connectionURL, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useFindAndModify: false
 })
 
 const app = express()

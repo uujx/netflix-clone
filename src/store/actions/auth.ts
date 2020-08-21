@@ -18,10 +18,11 @@ const authFail = (error: string): types.AuthFailAction => {
   }
 }
 
-const authSuccess = (token: string): types.AuthSuccessAction => {
+const authSuccess = (userId: string, token: string): types.AuthSuccessAction => {
   return {
     type: types.AUTH_SUCCESS,
-    token
+    token,
+    userId
   }
 }
 
@@ -43,13 +44,14 @@ export const auth = (
       .post(url, credential)
       .then((res) => {
         if (remember) {
+          localStorage.setItem('userId', res.data.user._id)
           localStorage.setItem('token', res.data.token)
           localStorage.setItem('expireDate', res.data.expireDate)
         }
 
         const expireDate = new Date(res.data.expireDate)
 
-        dispatch(authSuccess(res.data.token))
+        dispatch(authSuccess(res.data.user._id, res.data.token))
         dispatch(
           startExpirationTimer(
             (expireDate.getTime() - new Date().getTime())
@@ -63,6 +65,7 @@ export const auth = (
 }
 
 export const logout = (): types.LogoutAction => {
+  localStorage.removeItem('userId')
   localStorage.removeItem('token')
   localStorage.removeItem('expireDate')
 
@@ -76,8 +79,9 @@ export const checkAuthValidity = () => {
     dispatch: ThunkDispatch<RootState, undefined, types.AuthActionTypes>
   ) => {
     const token = localStorage.getItem('token')
+    const userId = localStorage.getItem('userId')
 
-    if (!token) {
+    if (!token || !userId) {
       dispatch(logout())
     } else {
       const expireDateString = localStorage.getItem('expireDate')
@@ -85,7 +89,7 @@ export const checkAuthValidity = () => {
       if (new Date() >= expireDate) {
         dispatch(logout())
       } else {
-        dispatch(authSuccess(token))
+        dispatch(authSuccess(userId, token))
         dispatch(
           startExpirationTimer(
             (expireDate.getTime() - new Date().getTime())

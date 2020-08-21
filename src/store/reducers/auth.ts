@@ -5,7 +5,8 @@ const initialState: AuthState = {
   isAuthed: false,
   token: '',
   loading: false,
-  error: ''
+  error: '',
+  userId: ''
 }
 
 const reducer = (
@@ -33,6 +34,7 @@ const reducer = (
         loading: false,
         error: '',
         token: action.token,
+        userId: action.userId,
         isAuthed: true
       }
 
@@ -41,6 +43,7 @@ const reducer = (
         ...state,
         error: '',
         token: '',
+        userId: '',
         isAuthed: false
       }
 

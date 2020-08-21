@@ -9,6 +9,12 @@ export interface MoviesState {
 export interface AuthState {
   isAuthed: boolean
   token: string
+  userId: string
+  loading: boolean
+  error: string
+}
+
+export interface AddMovieState {
   loading: boolean
   error: string
 }

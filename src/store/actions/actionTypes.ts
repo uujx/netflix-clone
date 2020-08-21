@@ -1,3 +1,5 @@
+import { Movie } from '../../model/Movie.model'
+
 export const SEARCH_START = 'SEARCH_START'
 export const SEARCH_SUCCESS = 'SEARCH_SUCCESS'
 export const SEARCH_FAIL = 'SEARCH_FAIL'
@@ -112,29 +114,6 @@ export type FetchNetflixActionTypes =
   | FetchNetflixStartAction
   | FetchNetflixSuccessAction
   | FetchNetflixFailAction
-
-export const FETCH_MY_LIST_START = 'FETCH_MY_LIST_START'
-export const FETCH_MY_LIST_SUCCESS = 'FETCH_MY_LIST_SUCCESS'
-export const FETCH_MY_LIST_FAIL = 'FETCH_MY_LIST_FAIL'
-
-export interface FetchMyListStartAction {
-  type: typeof FETCH_MY_LIST_START
-}
-
-export interface FetchMyListSuccessAction {
-  type: typeof FETCH_MY_LIST_SUCCESS
-  movies: any[]
-}
-
-export interface FetchMyListFailAction {
-  type: typeof FETCH_MY_LIST_FAIL
-  error: string
-}
-
-export type FetchMyListActionTypes =
-  | FetchMyListStartAction
-  | FetchMyListSuccessAction
-  | FetchMyListFailAction
 
 export const FETCH_ACTION_START = 'FETCH_ACTION_START'
 export const FETCH_ACTION_SUCCESS = 'FETCH_ACTION_SUCCESS'
@@ -263,6 +242,7 @@ export interface AuthStartAction {
 export interface AuthSuccessAction {
   type: typeof AUTH_SUCCESS
   token: string
+  userId: string
 }
 
 export interface AuthFailAction {
@@ -280,3 +260,46 @@ export type AuthActionTypes =
   | AuthFailAction
   | LogoutAction
 
+export const FETCH_MY_LIST_START = 'FETCH_MY_LIST_START'
+export const FETCH_MY_LIST_SUCCESS = 'FETCH_MY_LIST_SUCCESS'
+export const FETCH_MY_LIST_FAIL = 'FETCH_MY_LIST_FAIL'
+export const ADD_REMOVE_LIST_START = 'ADD_REMOVE_LIST_START'
+export const ADD_REMOVE_LIST_SUCCESS = 'ADD_REMOVE_LIST_SUCCESS'
+export const ADD_REMOVE_LIST_FAIL = 'ADD_REMOVE_LIST_FAIL'
+
+export interface FetchMyListStartAction {
+  type: typeof FETCH_MY_LIST_START
+}
+
+export interface FetchMyListSuccessAction {
+  type: typeof FETCH_MY_LIST_SUCCESS
+  movies: any[]
+}
+
+export interface FetchMyListFailAction {
+  type: typeof FETCH_MY_LIST_FAIL
+  error: string
+}
+
+export interface AddRemoveListStartAction {
+  type: typeof ADD_REMOVE_LIST_START
+}
+
+export interface AddRemoveListSuccessAction {
+  type: typeof ADD_REMOVE_LIST_SUCCESS
+  movie: Movie
+  isAdd: boolean
+}
+
+export interface AddRemoveListFailAction {
+  type: typeof ADD_REMOVE_LIST_FAIL
+  error: string
+}
+
+export type MyListActionTypes =
+  | FetchMyListStartAction
+  | FetchMyListSuccessAction
+  | FetchMyListFailAction
+  | AddRemoveListStartAction
+  | AddRemoveListSuccessAction
+  | AddRemoveListFailAction

@@ -1,9 +1,13 @@
 import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
+import Spinner from '../UI/Spinner/Spinner'
 import Button from '../UI/Button/Button'
 import AddLogo from '../../components/UI/AddLogo/AddLogo'
 import PlayLogo from '../../components/UI/PlayLogo/PlayLogo'
 import { Movie } from '../../model/Movie.model'
+import { RootState } from '../../store/reducers/index'
+import * as actions from '../../store/actions/index'
 import styles from './MovieDetail.module.scss'
 
 interface MovieDetailProps {
@@ -11,6 +15,25 @@ interface MovieDetailProps {
 }
 
 const MovieDetail: React.FC<MovieDetailProps> = (props) => {
+  const dispatch = useDispatch()
+  const { loading, error, movies } = useSelector((state: RootState) => state.mylist)
+
+  let isInList = false
+  for (let movie of movies) {
+    if (movie.id === props.movie?.id) {
+      isInList = true
+      break
+    }
+  }
+
+  const onClickHandler = () => {
+    if (isInList) {
+      dispatch(actions.removeMovie(props.movie!))
+    } else {
+      dispatch(actions.addMovie(props.movie!))
+    }
+  }
+
   let detail = null
   if (props.movie) {
     detail = (
@@ -32,9 +55,15 @@ const MovieDetail: React.FC<MovieDetailProps> = (props) => {
             <PlayLogo />
             PLAY
           </Button>
-          <Button type='black'>
-            <AddLogo />
-            MY LIST
+          <Button type='black' clicked={onClickHandler}>
+            {isInList ? (
+              'REMOVE'
+            ) : (
+              <>
+                <AddLogo />
+                MY LIST
+              </>
+            )}
           </Button>
         </div>
       </>

@@ -1,8 +1,8 @@
 import { ThunkDispatch } from 'redux-thunk'
 
-import { FetchingMovieResponse } from '../../model/Movie.model'
+import { Movie } from '../../model/Movie.model'
 import { RootState } from '../reducers/index'
-import axios from '../../axios-movies'
+import axios from 'axios'
 import * as types from './actionTypes'
 
 const fetchMyListStart = (): types.FetchMyListStartAction => {
@@ -18,9 +18,7 @@ const fetchMyListFail = (error: string): types.FetchMyListFailAction => {
   }
 }
 
-const fetchMyListSuccess = (
-  movies: any[]
-): types.FetchMyListSuccessAction => {
+const fetchMyListSuccess = (movies: any[]): types.FetchMyListSuccessAction => {
   return {
     type: types.FETCH_MY_LIST_SUCCESS,
     movies
@@ -29,32 +27,96 @@ const fetchMyListSuccess = (
 
 export const fetchMyList = () => {
   return (
-    dispatch: ThunkDispatch<
-      RootState,
-      undefined,
-      types.FetchMyListActionTypes
-    >,
+    dispatch: ThunkDispatch<RootState, undefined, types.MyListActionTypes>,
     getState: () => RootState
   ) => {
-    const state = getState()
-    if (state.mylist.movies.length !== 0) {
-      return
-    }
+    const token = getState().auth.token
 
     dispatch(fetchMyListStart())
 
     axios
-      .get<FetchingMovieResponse>(
-        `discover/tv?sort_by=popularity.desc&page=1&with_networks=213&include_null_first_air_dates=false`
-      )
+      .get('http://127.0.0.1:9000/api/movies?sortBy=createdAt:desc', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
       .then((res) => {
-        const filteredRes = res.data.results.filter(
-          (movie) => movie.backdrop_path != null
-        )
-        dispatch(fetchMyListSuccess(filteredRes))
+        dispatch(fetchMyListSuccess(res.data))
       })
       .catch((err) => {
-        dispatch(fetchMyListFail(err.response.data.errors[0]))
+        dispatch(fetchMyListFail(err.response.data))
+      })
+  }
+}
+
+const addRemoveMovieStart = (): types.AddRemoveListStartAction => {
+  return {
+    type: types.ADD_REMOVE_LIST_START
+  }
+}
+
+const addRemoveMovieFail = (error: string): types.AddRemoveListFailAction => {
+  return {
+    type: types.ADD_REMOVE_LIST_FAIL,
+    error
+  }
+}
+
+const addRemoveMovieSuccess = (
+  movie: any,
+  isAdd: boolean
+): types.AddRemoveListSuccessAction => {
+  return {
+    type: types.ADD_REMOVE_LIST_SUCCESS,
+    movie,
+    isAdd
+  }
+}
+
+export const addMovie = (movie: Movie) => {
+  return (
+    dispatch: ThunkDispatch<RootState, undefined, types.MyListActionTypes>,
+    getState: () => RootState
+  ) => {
+    dispatch(addRemoveMovieStart())
+
+    const token = getState().auth.token
+    const userId = getState().auth.userId
+    axios
+      .post(`http://127.0.0.1:9000/api/movies`, movie, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then((res) => {
+        dispatch(addRemoveMovieSuccess({ ...movie, userId }, true))
+      })
+      .catch((err) => {
+        dispatch(addRemoveMovieFail(err.response.data))
+      })
+  }
+}
+
+export const removeMovie = (movie: Movie) => {
+  return (
+    dispatch: ThunkDispatch<RootState, undefined, types.MyListActionTypes>,
+    getState: () => RootState
+  ) => {
+    dispatch(addRemoveMovieStart())
+
+    const token = getState().auth.token
+    const userId = getState().auth.userId
+    axios
+      .delete(`http://127.0.0.1:9000/api/movies/${movie.id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then((res) => {
+        dispatch(addRemoveMovieSuccess({ ...movie, userId }, false))
+      })
+      .catch((err) => {
+        dispatch(addRemoveMovieFail(err.response.data))
       })
   }
 }

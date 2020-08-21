@@ -36,9 +36,9 @@
     list-style: none;
     display: flex;
 
-    @include function.responsive(phone) {
-      display: none;
-    };
+    // @include function.responsive(phone) {
+    //   display: none;
+    // };
   }
 }
 

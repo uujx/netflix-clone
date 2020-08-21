@@ -8,17 +8,25 @@ const movieSchema = new mongoose.Schema({
     ref: 'User'
   },
   id: {
-    type: String,
+    type: Number,
     required: true,
     unique: true
   },
+  genre_ids: [{
+    type: Number,
+    required: false
+  }],
   title: {
     type: String,
-    required: true
+    required: false
   },
   name: {
     type: String,
-    required: true
+    required: false
+  },
+  original_name: {
+    type: String,
+    required: false
   },
   overview: {
     type: String,
@@ -34,11 +42,11 @@ const movieSchema = new mongoose.Schema({
   },
   release_date: {
     type: String,
-    required: true
+    required: false
   },
   first_air_date: {
     type: String,
-    required: true
+    required: false
   },
   vote_average: {
     type: Number,
