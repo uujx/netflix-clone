@@ -48,3 +48,9 @@ export const auth = (
       })
   }
 }
+
+export const logout = (): types.LogoutAction => {
+  return {
+    type: types.LOGOUT
+  }
+}

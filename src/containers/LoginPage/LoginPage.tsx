@@ -6,6 +6,7 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import * as actions from '../../store/actions/index'
 import { RootState } from '../../store/reducers/index'
 import bgImg from '../../assets/images/login-background.jpg'
+import NetflixLogo from '../../components/UI/NetflixLogo/NetflixLogo'
 import styles from './LoginPage.module.scss'
 
 type Inputs = {
@@ -139,6 +140,7 @@ const Login: React.FC = () => {
   ) : (
     <div style={backgroundStyle}>
       <div className={styles.TransparentBackground}>
+        <NetflixLogo alone={true} />
         <div className={styles.ContentContainer}>
           <h1 className={styles.Heading}>{isLogin ? 'Sign In' : 'Sign Up'}</h1>
           {error === '' ? null : <p className={styles.RequestError}>{error}</p>}

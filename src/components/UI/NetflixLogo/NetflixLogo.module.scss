@@ -11,8 +11,26 @@
   @include function.responsive(phone) {
     width: 8rem;
   };
+}
 
-  .Logo {
-    max-width: 100%;
-  }
+.AloneLogo {
+  width: 24rem;
+  cursor: pointer;
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+
+  @include function.responsive(pad) {
+    width: 22rem;
+  };
+
+  @include function.responsive(phone) {
+    width: 12rem;
+    left: .5rem;
+    top: .5rem;
+  };
+}
+
+.Logo {
+  max-width: 100%;
 }

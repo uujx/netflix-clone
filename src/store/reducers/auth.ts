@@ -36,6 +36,14 @@ const reducer = (
         isAuthed: true
       }
 
+    case types.LOGOUT:
+      return {
+        ...state,
+        error: '',
+        token: '',
+        isAuthed: false
+      }
+
     default:
       return state
   }

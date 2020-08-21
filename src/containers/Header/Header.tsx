@@ -37,8 +37,8 @@ const Header: React.FC = () => {
 
   return (
     <header className={backgroundStyle.join(' ')}>
-      <NetflixLogo />
-      <DropdownArrow clicked={onToggleDrawer}/>
+      <NetflixLogo alone={false} />
+      <DropdownArrow clicked={onToggleDrawer} />
       <nav className={styles.MainNav} ref={navRef} onClick={onToggleDrawer}>
         <NavigationItem url='/' name='Home' />
         <NavigationItem url='/tv' name='TV Shows' />
@@ -52,6 +52,9 @@ const Header: React.FC = () => {
         <NavigationItem url='' name='DVD' />
       </nav>
       <BellLogo />
+      <nav className={styles.OtherNav}>
+        <NavigationItem url='/logout' name='Logout' />
+      </nav>
     </header>
   )
 }
