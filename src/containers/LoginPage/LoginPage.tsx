@@ -1,7 +1,10 @@
-import React, { useState, useRef } from 'react'
-import { NavLink } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
+import React, { useState, useRef, BaseSyntheticEvent } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { Redirect } from 'react-router-dom'
+import { useForm, SubmitHandler } from 'react-hook-form'
 
+import * as actions from '../../store/actions/index'
+import { RootState } from '../../store/reducers/index'
 import bgImg from '../../assets/images/login-background.jpg'
 import styles from './LoginPage.module.scss'
 
@@ -20,6 +23,10 @@ const Login: React.FC = () => {
   const emailInputRef = useRef<HTMLInputElement | null>(null)
   const pwdInputRef = useRef<HTMLInputElement | null>(null)
   const [isLogin, setIsLogin] = useState(true)
+  const { loading, error, isAuthed, token } = useSelector(
+    (state: RootState) => state.auth
+  )
+  const dispatch = useDispatch()
 
   const onEmailChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     checkHasText(emailInputRef.current!, event.target.value)
@@ -33,8 +40,12 @@ const Login: React.FC = () => {
     checkHasError()
   }
 
-  const onSubmitHandler = () => {
-    checkHasError()
+  const onSubmitHandler: SubmitHandler<Inputs> = (
+    data: Inputs,
+    event: BaseSyntheticEvent<object, any, any> | undefined
+  ) => {
+    event?.preventDefault()
+    dispatch(actions.auth(data, isLogin))
   }
 
   const onSwitchSignUp = () => {
@@ -121,11 +132,16 @@ const Login: React.FC = () => {
   }
   const passwordError = <p className={styles.ErrorMsg}>{pwdErrorMsg}</p>
 
-  return (
+  let redirect = <Redirect to='/' />
+
+  return isAuthed ? (
+    redirect
+  ) : (
     <div style={backgroundStyle}>
       <div className={styles.TransparentBackground}>
         <div className={styles.ContentContainer}>
           <h1 className={styles.Heading}>{isLogin ? 'Sign In' : 'Sign Up'}</h1>
+          {error === '' ? null : <p className={styles.RequestError}>{error}</p>}
           <form
             className={styles.LoginForm}
             onSubmit={handleSubmit(onSubmitHandler, (errors) =>

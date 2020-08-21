@@ -14,6 +14,7 @@
     flex-direction: column;
     padding: 6rem 6.8rem 4rem;
     border-radius: 3px;
+    width: 45rem;
 
     @include function.responsive(phone) {
       padding: 5rem 3rem 4rem;
@@ -29,11 +30,20 @@
       }
     }
 
+    .RequestError {
+      width: 100%;
+      background-color: #E87C03;
+      padding: 1.5rem 2rem;
+      border-radius: 5px;
+      font-size: 1.6rem;
+      color: white;
+    }
+
     .LoginForm {
-      width: 32rem;
+      width: 100%;
 
       @include function.responsive(phone) {
-        width: 25rem;
+        width: 100%;
       }
 
       .FormGroup {

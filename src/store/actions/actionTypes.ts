@@ -250,3 +250,27 @@ export type FetchRecentActionTypes =
   | FetchRecentStartAction
   | FetchRecentSuccessAction
   | FetchRecentFailAction
+
+export const AUTH_START = 'AUTH_START'
+export const AUTH_SUCCESS = 'AUTH_SUCCESS'
+export const AUTH_FAIL = 'AUTH_FAIL'
+
+export interface AuthStartAction {
+  type: typeof AUTH_START
+}
+
+export interface AuthSuccessAction {
+  type: typeof AUTH_SUCCESS
+  token: string
+}
+
+export interface AuthFailAction {
+  type: typeof AUTH_FAIL
+  error: string
+}
+
+export type AuthActionTypes =
+  | AuthStartAction
+  | AuthSuccessAction
+  | AuthFailAction
+

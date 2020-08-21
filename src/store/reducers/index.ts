@@ -10,6 +10,7 @@ import horror from './horror'
 import docu from './docu'
 import movies from './movies'
 import recent from './recent'
+import auth from './auth'
 
 export const rootReducer = combineReducers({
   search,
@@ -22,7 +23,8 @@ export const rootReducer = combineReducers({
   horror,
   docu,
   movies,
-  recent
+  recent,
+  auth
 })
 
 export type RootState = ReturnType<typeof rootReducer>

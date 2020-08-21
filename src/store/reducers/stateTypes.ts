@@ -5,3 +5,10 @@ export interface MoviesState {
   loading: boolean
   error: string
 }
+
+export interface AuthState {
+  isAuthed: boolean
+  token: string
+  loading: boolean
+  error: string
+}
