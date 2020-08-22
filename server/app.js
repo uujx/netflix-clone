@@ -4,13 +4,12 @@ const path = require('path')
 const cors = require('cors')
 const auth = require('./middleware/auth')
 
-const authRouter = require('./routers/auth')
+const userRouter = require('./routers/user')
 const listRouter = require('./routers/movie')
 
-const port = process.env.PORT || 9000
-const connectionURL = 'mongodb://127.0.0.1:27017/netflix'
+const port = process.env.PORT
 
-mongoose.connect(connectionURL, {
+mongoose.connect(process.env.MONGODB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false
@@ -20,7 +19,7 @@ const app = express()
 
 app.use(express.json())
 app.use(cors())
-app.use(authRouter)
+app.use(userRouter)
 app.use(listRouter)
 // app.use(express.static(path.join(__dirname, '/../dist')))
 

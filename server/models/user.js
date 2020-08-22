@@ -58,14 +58,17 @@ userSchema.methods.generateAuthToken = async function () {
   expireDate.setDate(new Date().getDate() + 7)
   // expireDate.setTime(new Date().getTime() + 20000)
 
-  const token = jwt.sign({ _id: user._id }, 'netflixclone', {
-    expiresIn: '7 days'
-  })
-
-  user.tokens = user.tokens.concat({ token })
-  await user.save()
-
-  return { token, expireDate }
+  try {
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: '7 days'
+    })
+    user.tokens = user.tokens.concat({ token })
+    await user.save()
+  
+    return { token, expireDate }
+  } catch (error) {
+    throw new Error(error)
+  }
 }
 
 userSchema.statics.findByCredentials = async (email, password) => {

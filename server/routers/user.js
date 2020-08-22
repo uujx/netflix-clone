@@ -16,12 +16,12 @@ router.post('/api/auth/signup', async (req, res) => {
   const user = new User(req.body)
 
   try {
-    const token = await user.generateAuthToken()
+    const { token, expireDate } = await user.generateAuthToken()
     await user.save()
 
-    res.status(201).send({ user, token })
+    res.status(201).send({ user, token, expireDate })
   } catch (error) {
-    res.status(400).send('Email address already exists. Try to login instead.')
+    res.status(400).send(error)
   }
 })
 
