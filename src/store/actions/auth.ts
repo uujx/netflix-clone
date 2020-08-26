@@ -35,8 +35,8 @@ export const auth = (
     dispatch: ThunkDispatch<RootState, undefined, types.AuthActionTypes>
   ) => {
     const url = isLogin
-      ? 'http://127.0.0.1:9000/api/auth/signin'
-      : 'http://127.0.0.1:9000/api/auth/signup'
+      ? 'https://uujx-netflix-clone.herokuapp.com/api/auth/signin'
+      : 'https://uujx-netflix-clone.herokuapp.com/api/auth/signup'
 
     dispatch(authStart())
 

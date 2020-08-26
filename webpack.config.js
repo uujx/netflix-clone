@@ -17,8 +17,6 @@ const processEnv = Object.keys(env).reduce((prev, next) => {
   return prev
 }, {})
 
-console.log(env)
-console.log(processEnv)
 
 module.exports = {
   entry: './src/index.tsx',

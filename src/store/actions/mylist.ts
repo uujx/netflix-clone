@@ -35,7 +35,7 @@ export const fetchMyList = () => {
     dispatch(fetchMyListStart())
 
     axios
-      .get('http://127.0.0.1:9000/api/movies?sortBy=createdAt:desc', {
+      .get('https://uujx-netflix-clone.herokuapp.com/api/movies?sortBy=createdAt:desc', {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -83,7 +83,7 @@ export const addMovie = (movie: Movie) => {
     const token = getState().auth.token
     const userId = getState().auth.userId
     axios
-      .post(`http://127.0.0.1:9000/api/movies`, movie, {
+      .post(`https://uujx-netflix-clone.herokuapp.com/api/movies`, movie, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -107,7 +107,7 @@ export const removeMovie = (movie: Movie) => {
     const token = getState().auth.token
     const userId = getState().auth.userId
     axios
-      .delete(`http://127.0.0.1:9000/api/movies/${movie.id}`, {
+      .delete(`https://uujx-netflix-clone.herokuapp.com/api/movies/${movie.id}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
