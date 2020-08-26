@@ -1,6 +1,6 @@
 # Netflix Clone
 
-[Demo](uujx-netflix-clone.herokuapp.com)
+You can check the deployed app on [Heroku](https://uujx-netflix-clone.herokuapp.com).
 
 This is a Netflix frontend clone project built with TypeScript, React, Redux, React-Router. It uses The MovieDB API to search for movies and display details.
 
